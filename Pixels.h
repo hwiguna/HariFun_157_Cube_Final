@@ -13,3 +13,10 @@ void SetAll(CRGB c)
   FastLED.show();
 }
 
+void SetPixel(int x, int y, int z, CRGB c)
+{
+  if (x>=0 && x<8 &&
+      y>=0 && y<8 &&
+      z>=0 && z<8)
+  leds[ ToIndex(x,y,z) ] = c;
+}

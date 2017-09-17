@@ -33,8 +33,10 @@ CRGB leds[NUM_LEDS];
 void setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(CRGB::Black);
+  DrawDiagonal(CRGB::Blue);
+  FastLED.show();
 }
 
 void loop() {
-  OneAtATime();
+  //OneAtATime();
 }
