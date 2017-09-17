@@ -7,3 +7,8 @@ void OneAtATime()
   }
 }
 
+void DrawDiagonal(CRGB c)
+{
+  DrawLine( 0,0,0, 7,7,7, c);
+}
+
