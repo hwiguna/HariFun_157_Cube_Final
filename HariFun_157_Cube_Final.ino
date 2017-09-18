@@ -26,17 +26,21 @@ CRGB leds[NUM_LEDS];
 #define DATA_PIN 3
 
 #include "Pixels.h"
+#include "Point.h"
 #include "Lines.h"
 #include "Shapes.h"
 #include "Tests.h"
+#include "RetroFromFuture.h"
 
 void setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(CRGB::Black);
-  DrawDiagonal(CRGB::Blue);
-  FastLED.show();
 }
 
 void loop() {
   //OneAtATime();
+  //DrawXYRects();
+  //EtchSketch();
+  SlidingCubes();
+  //RetroFromFuture();
 }
