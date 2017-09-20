@@ -31,6 +31,7 @@ void Rain()
   }
 
 }
+
 void LiftUp(int animRate)
 {
   for (int i = 0; i <= 6; i++)
