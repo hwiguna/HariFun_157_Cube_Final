@@ -14,19 +14,19 @@ void DrawYZRect(Point a, Point b, CRGB c)
   DrawLine(a.x,a.y,b.z, a.x,b.y,b.z, c); // right line
 }
 
-//void DrawBox(Point a, Point b, CRGB c)
-//{
-//  Point a2 = {a.x, a.y, b.z}; // point A but on the back
-//  Point b2 = {b.x, b.y, a.z}; // point B but in front
-//  
-//  DrawXYRect(a, b2, c); // front
-//  DrawXYRect(a2, b, c); // back
-//  
-//  Point b3 = {a.x, b.y, b.z}; // point B but at A's X
-//  Point a3 = {b.x, a.y, a.z}; // point A but at B's X
-//  DrawYZRect(a, b3, c); // Left
-//  DrawYZRect(a3, b, c); // Right
-//}
+void DrawBox(Point a, Point b, CRGB c)
+{
+  Point a2 = {a.x, a.y, b.z}; // point A but on the back
+  Point b2 = {b.x, b.y, a.z}; // point B but in front
+  
+  DrawXYRect(a, b2, c); // front
+  DrawXYRect(a2, b, c); // back
+  
+  Point b3 = {a.x, b.y, b.z}; // point B but at A's X
+  Point a3 = {b.x, a.y, a.z}; // point A but at B's X
+  DrawYZRect(a, b3, c); // Left
+  DrawYZRect(a3, b, c); // Right
+}
 
 void DrawCube(Point a, Point b, CRGB c)
 {

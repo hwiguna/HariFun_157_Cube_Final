@@ -2,16 +2,18 @@
 //
 // By Hari Wiguna, 2017
 //
+// WIRING:
+// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D3
+// I put a 1000uF Electrolytic capacitor at the beginning of the power bus.
+//
 // Coordinate system:
 // Front bottom left of the cube is 0,0,0
 // Left to right is positive X
 // Bottom to top is positive Y
 // Front to back is positive Z
-
-// WIRING:
-// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D3
+//
 // Neopixels are wired such that first pixel is at 0,0,0 and last one is at 7,0,7.
-// This is how the first 64 pixels (at Z=0) are wired:
+// This is how the first 64 pixels (front vertical face at Z=0) are wired:
 // 7 > 8    23 > 24   39 > 40   55 > 56
 // 6   9    22   25   38   41   54   57
 // 5   10   21   26   37   42   53   58
@@ -46,6 +48,10 @@ void loop() {
   //OneAtATime();
   //DrawXYRects();
   //EtchSketch();
-  SlidingCubes();
+  //SlidingCubes();
   //RetroFromFuture();
+  //Point origin, int from, int to, CRGB c, int rate, Point rotations)
+  Point origin = {0,0,0};  
+  Point rotations = {0,0,0};  
+  FlipSlant(origin, 0,7, CRGB::Red, 500, rotations);
 }
