@@ -10,7 +10,6 @@ void SetAll(CRGB c)
   for (int i = 0; i < NUM_LEDS; i++) {
     leds[ i ] = c;
   }
-  FastLED.show();
 }
 
 void SetPixel(int x, int y, int z, CRGB c)

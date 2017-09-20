@@ -82,3 +82,8 @@ void DrawLine(int x1, int y1, int z1, int x2, int y2, int z2, CRGB c)
   Bresenham3D(x1, y1, z1, x2, y2, z2, c);
 }
 
+void DrawLine(Point a, Point b, CRGB c)
+{
+  Bresenham3D(a.x, a.y, a.z, b.x, b.y, b.z, c);
+}
+

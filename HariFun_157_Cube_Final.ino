@@ -9,13 +9,18 @@
 // Front to back is positive Z
 
 // WIRING:
-// Connect first pixel via a 470 ohm resistor to DATA_PIN D3
-// Neopixels are wired such that first pixel is at 0,0,0
-// Then it goes up to 0,7,0
-// Right to next X 1,7,0 and down to 1,0,0
-// Right again to 2,0,0 and up to 2,7,0, etc until rightmost 7,0,0
-// Then we start over at next Z 0,0,1
-// up as before 0,7,1 to 1,7,1 to 1,0,1, etc all the way to the back
+// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D3
+// Neopixels are wired such that first pixel is at 0,0,0 and last one is at 7,0,7.
+// This is how the first 64 pixels (at Z=0) are wired:
+// 7 > 8    23 > 24   39 > 40   55 > 56
+// 6   9    22   25   38   41   54   57
+// 5   10   21   26   37   42   53   58
+// 4   11   20   27   36   43   52   59
+// 3   12   19   28   35   44   51   60
+// 2   13   18   29   34   45   50   61
+// 1   14   17   30   33   46   49   62
+// 0   15 > 16   31 > 32   47 > 48   63
+// All subsequent Z planes are in the same order as the first Z, starting at bottom left, ending up at bottom right.
 
 // Neopixels are driven by FastLED library by Daniel Garcia
 #include "FastLED.h"
@@ -26,17 +31,21 @@ CRGB leds[NUM_LEDS];
 #define DATA_PIN 3
 
 #include "Pixels.h"
+#include "Point.h"
 #include "Lines.h"
 #include "Shapes.h"
 #include "Tests.h"
+#include "RetroFromFuture.h"
 
 void setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(CRGB::Black);
-  DrawDiagonal(CRGB::Blue);
-  FastLED.show();
 }
 
 void loop() {
   //OneAtATime();
+  //DrawXYRects();
+  //EtchSketch();
+  SlidingCubes();
+  //RetroFromFuture();
 }
