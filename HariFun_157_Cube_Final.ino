@@ -32,6 +32,9 @@
 CRGB leds[NUM_LEDS];
 #define DATA_PIN 3
 
+CRGB bgColor = CRGB::Blue;
+CRGB fgColor = CRGB::White;
+
 #include "Pixels.h"
 #include "Point.h"
 #include "Lines.h"
@@ -41,7 +44,8 @@ CRGB leds[NUM_LEDS];
 
 void setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
-  SetAll(CRGB::Black);
+  SetAll(bgColor);
+  FastLED.show();
 }
 
 void loop() {
@@ -50,8 +54,21 @@ void loop() {
   //EtchSketch();
   //SlidingCubes();
   //RetroFromFuture();
-  //Point origin, int from, int to, CRGB c, int rate, Point rotations)
-  Point origin = {0,0,0};  
-  Point rotations = {0,0,0};  
-  FlipSlant(origin, 0,7, CRGB::Red, 500, rotations);
+
+//  Point origin = {0,0,0};  
+//  Point rotations = {0,0,0};  
+//  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
+//  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
+  
+  int rate = 60;
+  FlipBottomToFront(fgColor, rate);
+  FlipFrontToLeft(fgColor, rate);
+  FlipLeftToBack(fgColor, rate);
+  FlipBackToBottom(fgColor, rate);
+   //FlipFrontToRight(fgColor, rate);
+   //FlipBackToRight(fgColor, rate);
+
+  //FastLED.delay(1000);
+  //SetAll(bgColor);
+  //FastLED.delay(1000);
 }
