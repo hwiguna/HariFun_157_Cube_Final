@@ -1,6 +1,6 @@
 # HariFun_157_Cube_Final
 
-![Photo of the cube](https://raw.githubusercontent.com/hwiguna/HariFun_157_Cube_Final/master/Images/20170827_031507.jpg)
+![Photo of the cube](https://raw.githubusercontent.com/hwiguna/HariFun_157_Cube_Final/master/Images/20170920_225502.jpg)
 
 Giant Ping Pong Ball Color LED Cube
 
