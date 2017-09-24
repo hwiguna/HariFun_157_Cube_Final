@@ -41,6 +41,8 @@ CRGB fgColor = CRGB::White;
 #include "Lines.h"
 #include "Shapes.h"
 #include "Text.h"
+#include "Anim_Wires.h"
+#include "Anim_Solids.h"
 #include "Tests.h"
 #include "RetroFromFuture.h"
 
@@ -51,20 +53,18 @@ void setup() {
   FastLED.show();
 }
 
-void loop() {
-  AlphabetSoup();
-  FastLED.delay(1000);
-  //OneAtATime();
-  //DrawXYRects();
-  //EtchSketch();
-  //RetroFromFuture();
 
-  //  Point origin = {0,0,0};
-  //  Point rotations = {0,0,0};
-  //  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
-  //  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
+//OneAtATime();
+//DrawXYRects();
+//EtchSketch();
+//RetroFromFuture();
 
-  int rate = 60;
+//  Point origin = {0,0,0};
+//  Point rotations = {0,0,0};
+//  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
+//  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
+
+// int rate = 60;
 //  GrowFromCenter(0, fgColor, rate);
 //  FlipBottomToFront(fgColor, rate);
 //    FlipFrontToLeft(fgColor, rate);
@@ -72,11 +72,14 @@ void loop() {
 //    FlipBackToBottom(fgColor, rate);
 //  ShrinkToCenter(0, fgColor, rate);
 
-  //SlidingCubes();
-  //FlipFrontToRight(fgColor, rate);
-  //FlipBackToRight(fgColor, rate);
+//SlidingCubes();
+//FlipFrontToRight(fgColor, rate);
+//FlipBackToRight(fgColor, rate);
 
-  //FastLED.delay(1000);
-  SetAll(bgColor);
-  FastLED.delay(1000);
+//FastLED.delay(1000);
+//  SetAll(bgColor);
+//  FastLED.delay(1000);
+
+void loop() {
+  RetroFromFuture();
 }

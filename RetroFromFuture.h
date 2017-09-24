@@ -25,7 +25,7 @@ bool HasOn()
   return hasOn;
 }
 
-void Rain2()
+void Rain()
 {
   //-- Create random list of top XY plane pixels --
   byte seq[64];
@@ -81,7 +81,7 @@ void LiftUp(int animRate)
 
 void SlidingCubes()
 {
-  int animRate = 10;
+  int animRate = 100;
 
   // Red drop from top
   for (int i = 7; i >= 0; i--) {
@@ -146,20 +146,31 @@ void SlidingCubes()
     FastLED.delay(animRate);
     if (i > 0) DrawCube(a1, b1, CRGB::Black);
   }
-
-  delay(1000);
-
-  LiftUp(animRate * 2);
-  Rain2();
-
-  delay(1000);
-
-  FastLED.clear();
 }
 
 
-//void RetroFromFuture()
-//{
-//  SuperNova(500,500, CRGB::Red);
-//}
+void RetroFromFuture()
+{
+  byte rate = 60;
+  DrawText(F("HELLO YOUTUBE   "));
+  FastLED.delay(1000);
+
+  GrowFromCenter(0, fgColor, rate);
+  FastLED.delay(500);
+
+  FlipBottomToFront(fgColor, rate);
+  FlipFrontToLeft(fgColor, rate);
+  FlipLeftToBack(fgColor, rate);
+  FlipBackToBottom(fgColor, rate);
+
+  ShrinkToCenter(0, fgColor, rate);
+  FastLED.delay(1000);
+
+  SlidingCubes();
+  FastLED.delay(500);
+  LiftUp(rate * 2);
+
+  Rain();
+  FastLED.delay(1000);
+}
 

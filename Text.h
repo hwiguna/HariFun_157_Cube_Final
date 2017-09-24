@@ -65,45 +65,55 @@ const byte alphabets[][5] PROGMEM = {
   {67, 69, 73, 81, 97},
 };
 
-void AlphabetSoup()
+void ShiftRightOnBackFace(byte row)
 {
-  char msg[] = "CELLO  ";
+  // Shift everything one pixel right (on the back face)
+  for (byte i = 7; i > 0; i--)
+    leds[ ToIndex(i, row, 7) ] = leds[ ToIndex(i-1, row, 7) ];
+}
+
+void ShiftBackOnLeftFace(byte row)
+{
+  // Shift everything one pixel towards the back
+  for (byte i = 0; i < 7; i++)
+    leds[ ToIndex(0, row, 7 - i) ] = leds[ ToIndex(0, row, 6 - i) ];
+}
+
+void ShiftLeftOnFrontFace(byte row)
+{
+  // Shift everything one pixel left
+  for (byte i = 0; i < 7; i++)
+    leds[ ToIndex(i, row, 0) ] = leds[ ToIndex(i + 1, row, 0) ];
+}
+
+
+void DrawText(String msg)
+{
   int numCols = 8;
-
-  
-    int alphabetIndex = msg[0] - ' ';
-    if (alphabetIndex < 0) alphabetIndex=0;
-    
-  //-- Draw one character of the message --
-  // Each character is only 5 columns wide, but I loop two more times to create 2 pixel space betwen characters
-  for (int col = 0; col < 7; col++)
+  for (int charIndex = 0; charIndex < msg.length(); charIndex++)
   {
-    for (int row = 0; row < 8; row++)
+    int alphabetIndex = msg[charIndex] - ' ';
+    if (alphabetIndex < 0) alphabetIndex = 0;
+
+    //-- Draw one character of the message --
+    // Each character is only 5 columns wide, but I loop two more times to create 2 pixel space betwen characters
+    for (int col = 0; col < 7; col++)
     {
-      // Set the pixel to what the alphabet say for columns 0 thru 4, but always leave columns 5 and 6 blank.
-      bool isOn = 0;
-       byte myChar = pgm_read_byte(&(alphabets[alphabetIndex][col]));
-
-      if (col < 5) isOn = bitRead( myChar, row ) == 1;
-      SetPixel(numCols - 1, row, 0, isOn ? CRGB::Blue : CRGB::Black); // We ALWAYS draw on the rightmost column, the shift loop below will scroll it leftward.
-    }
-
-    FastLED.delay(500);
-
-    //-- Shift the bitmap one column to left --
-    int numZones = 1;
-    for (int row = 0; row < 8; row++)
-    {
-      for (int zone = 0; zone < numZones; zone++)
+      for (int row = 0; row < 8; row++)
       {
-        // Shift everything one pixel left
-        for (byte i = 0; i < 7; i++)
-          leds[ ToIndex(i, row, 0) ] = leds[ ToIndex(i + 1, row, 0) ];
+        //-- Shift the bitmap one column to left --
+        ShiftRightOnBackFace(row);
+        ShiftBackOnLeftFace(row);
+        ShiftLeftOnFrontFace(row);
 
-        // Roll over lowest bit from the next zone as highest bit of this zone.
-        //if (zone < maxZoneIndex) bitWrite(bitmap[row][zone], 7, bitRead(bitmap[row][zone+1],0));
+        // Set the pixel to what the alphabet say for columns 0 thru 4, but always leave columns 5 and 6 blank.
+        bool isOn = 0;
+        byte myChar = pgm_read_byte(&(alphabets[alphabetIndex][col]));
+
+        if (col < 5) isOn = bitRead( myChar, row ) == 1;
+        SetPixel(numCols - 1, row, 0, isOn ? CRGB::Blue : CRGB::Black); // We ALWAYS draw on the rightmost column, the shift loop below will scroll it leftward.
       }
+      FastLED.delay(100);
     }
-
   }
 }

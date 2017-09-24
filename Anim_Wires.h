@@ -256,9 +256,9 @@ void FlipBackToBottom(CRGB c, int rate)
   }
 }
 
-void GrowFromCenter(byte y, CRGB c, int rate)
+void GrowFromCenter(byte y, CRGB c, byte rate)
 {
-  for (int i = 0; i < 4; i++)
+  for (byte i = 0; i < 4; i++)
   {
     Point points[5];
     points[0] = {3-i, y, 3-i}; // x-, z-
@@ -273,7 +273,7 @@ void GrowFromCenter(byte y, CRGB c, int rate)
   }
 }
 
-void ShrinkToCenter(byte y, CRGB c, int rate)
+void ShrinkToCenter(byte y, CRGB c, byte rate)
 {
   for (int i = 3; i >=0 ; i--)
   {
