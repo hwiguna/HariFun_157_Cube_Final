@@ -53,24 +53,26 @@ void loop() {
   //OneAtATime();
   //DrawXYRects();
   //EtchSketch();
-  SlidingCubes();
   //RetroFromFuture();
 
-//  Point origin = {0,0,0};  
-//  Point rotations = {0,0,0};  
-//  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
-//  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
-  
+  //  Point origin = {0,0,0};
+  //  Point rotations = {0,0,0};
+  //  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
+  //  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
+
   int rate = 60;
-  GrowFromCenter(fgColor,rate);
+  GrowFromCenter(0, fgColor, rate);
   FlipBottomToFront(fgColor, rate);
-  FlipFrontToLeft(fgColor, rate);
-  FlipLeftToBack(fgColor, rate);
-  FlipBackToBottom(fgColor, rate);
-   //FlipFrontToRight(fgColor, rate);
-   //FlipBackToRight(fgColor, rate);
+    FlipFrontToLeft(fgColor, rate);
+    FlipLeftToBack(fgColor, rate);
+    FlipBackToBottom(fgColor, rate);
+  ShrinkToCenter(0, fgColor, rate);
+
+  SlidingCubes();
+  //FlipFrontToRight(fgColor, rate);
+  //FlipBackToRight(fgColor, rate);
 
   //FastLED.delay(1000);
-  //SetAll(bgColor);
-  //FastLED.delay(1000);
+  SetAll(bgColor);
+  FastLED.delay(1000);
 }

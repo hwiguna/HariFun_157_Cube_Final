@@ -254,6 +254,39 @@ void FlipBackToBottom(CRGB c, int rate)
     FastLED.delay(rate);
     if (i!=0) DrawPoly(points, bgColor);
   }
+}
 
+void GrowFromCenter(byte y, CRGB c, int rate)
+{
+  for (int i = 0; i < 4; i++)
+  {
+    Point points[5];
+    points[0] = {3-i, y, 3-i}; // x-, z-
+    points[1] = {3-i, y, 4+i}; // x-, z+
+    points[2] = {4+i, y, 4+i}; // x+, z+
+    points[3] = {4+i, y, 3-i}; // x+, z-
+    points[4] = {3-i, y, 3-i}; // back to point 0
+
+    DrawPoly(points, c, 5);
+    FastLED.delay(rate);
+    if (i<3) DrawPoly(points, bgColor, 5);
+  }
+}
+
+void ShrinkToCenter(byte y, CRGB c, int rate)
+{
+  for (int i = 3; i >=0 ; i--)
+  {
+    Point points[5];
+    points[0] = {3-i, y, 3-i}; // x-, z-
+    points[1] = {3-i, y, 4+i}; // x-, z+
+    points[2] = {4+i, y, 4+i}; // x+, z+
+    points[3] = {4+i, y, 3-i}; // x+, z-
+    points[4] = {3-i, y, 3-i}; // back to point 0
+
+    DrawPoly(points, c, 5);
+    FastLED.delay(rate);
+    DrawPoly(points, bgColor, 5);
+  }
 }
 
