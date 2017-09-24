@@ -32,7 +32,7 @@
 CRGB leds[NUM_LEDS];
 #define DATA_PIN 3
 
-CRGB bgColor = CRGB::Blue;
+CRGB bgColor = CRGB::Black; // {0,0,64};
 CRGB fgColor = CRGB::White;
 
 #include "Pixels.h"
@@ -43,6 +43,7 @@ CRGB fgColor = CRGB::White;
 #include "RetroFromFuture.h"
 
 void setup() {
+  //Serial.begin(9600);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(bgColor);
   FastLED.show();
@@ -52,7 +53,7 @@ void loop() {
   //OneAtATime();
   //DrawXYRects();
   //EtchSketch();
-  //SlidingCubes();
+  SlidingCubes();
   //RetroFromFuture();
 
 //  Point origin = {0,0,0};  
@@ -61,6 +62,7 @@ void loop() {
 //  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
   
   int rate = 60;
+  GrowFromCenter(fgColor,rate);
   FlipBottomToFront(fgColor, rate);
   FlipFrontToLeft(fgColor, rate);
   FlipLeftToBack(fgColor, rate);

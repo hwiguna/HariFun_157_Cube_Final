@@ -46,9 +46,9 @@ void FlipBottomToFront(CRGB c, int rate)
     points[2] = {origin.x + width.x, origin.y + i, origin.z + offset.z};
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    DrawLines(points, bgColor);
+    DrawPoly(points, bgColor);
   }
 
   // Back to front (on top)
@@ -60,9 +60,9 @@ void FlipBottomToFront(CRGB c, int rate)
     points[2] = {origin.x + width.x, origin.y + offset.y, origin.z + i};
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    if (i!=0) DrawLines(points, bgColor);
+    if (i!=0) DrawPoly(points, bgColor);
   }
 }
 
@@ -84,9 +84,9 @@ void FlipFrontToRight(CRGB c, int rate)
     points[2] = {origin.x - width.x, origin.y+offset.y, origin.z + i};
     points[3] = {origin.x,           origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    DrawLines(points, bgColor);
+    DrawPoly(points, bgColor);
   }
 
   // left to right (on back)
@@ -98,9 +98,9 @@ void FlipFrontToRight(CRGB c, int rate)
     points[2] = {origin.x - i, origin.y+offset.y, origin.z + offset.z};
     points[3] = {origin.x,     origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    if (i!=0) DrawLines(points, bgColor);
+    if (i!=0) DrawPoly(points, bgColor);
   }
 }
 
@@ -122,9 +122,9 @@ void FlipFrontToLeft(CRGB c, int rate)
     points[2] = {origin.x + width.x, origin.y+offset.y, origin.z + i};
     points[3] = {origin.x,           origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    DrawLines(points, bgColor);
+    DrawPoly(points, bgColor);
   }
 
   // right to left (on back)
@@ -136,9 +136,9 @@ void FlipFrontToLeft(CRGB c, int rate)
     points[2] = {origin.x + i, origin.y+offset.y, origin.z + offset.z};
     points[3] = {origin.x,     origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    if (i!=0) DrawLines(points, bgColor);
+    if (i!=0) DrawPoly(points, bgColor);
   }
 }
 
@@ -160,9 +160,9 @@ void FlipLeftToBack(CRGB c, int rate)
     points[2] = {origin.x + i, origin.y+offset.y, origin.z - width.z};
     points[3] = {origin.x,           origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    DrawLines(points, bgColor);
+    DrawPoly(points, bgColor);
   }
 
   // front to back (on right)
@@ -174,9 +174,9 @@ void FlipLeftToBack(CRGB c, int rate)
     points[2] = {origin.x + width.x, origin.y+offset.y, origin.z - width.z + i};
     points[3] = {origin.x,           origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    if (i<7) DrawLines(points, bgColor);
+    if (i<7) DrawPoly(points, bgColor);
   }
 }
 
@@ -198,9 +198,9 @@ void FlipBackToRight(CRGB c, int rate)
     points[2] = {origin.x - width.x, origin.y+offset.y, origin.z - i};
     points[3] = {origin.x,           origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    DrawLines(points, bgColor);
+    DrawPoly(points, bgColor);
   }
 
   // left to right (on front)
@@ -212,9 +212,9 @@ void FlipBackToRight(CRGB c, int rate)
     points[2] = {origin.x - width.x + i, origin.y+offset.y, origin.z - width.z};
     points[3] = {origin.x,           origin.y+offset.y, origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    if (i<7) DrawLines(points, bgColor);
+    if (i<7) DrawPoly(points, bgColor);
   }
 }
 
@@ -236,9 +236,9 @@ void FlipBackToBottom(CRGB c, int rate)
     points[2] = {origin.x + width.x, origin.y + offset.y, origin.z - width.z + i};
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    DrawLines(points, bgColor);
+    DrawPoly(points, bgColor);
   }
   
   // top to bottom (in front)
@@ -250,9 +250,9 @@ void FlipBackToBottom(CRGB c, int rate)
     points[2] = {origin.x + width.x, origin.y + i, origin.z - width.z};
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
-    DrawLines(points, c);
+    DrawPoly(points, c);
     FastLED.delay(rate);
-    if (i!=0) DrawLines(points, bgColor);
+    if (i!=0) DrawPoly(points, bgColor);
   }
 
 }
