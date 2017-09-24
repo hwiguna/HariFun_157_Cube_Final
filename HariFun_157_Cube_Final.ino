@@ -4,7 +4,7 @@
 //
 // WIRING:
 // Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D3
-// I put a 1000uF Electrolytic capacitor at the beginning of the power bus.
+// I put a 470uF Electrolytic capacitor at the base of each of the four modules.
 //
 // Coordinate system:
 // Front bottom left of the cube is 0,0,0
@@ -35,10 +35,12 @@ CRGB leds[NUM_LEDS];
 CRGB bgColor = CRGB::Black; // {0,0,64};
 CRGB fgColor = CRGB::White;
 
+#include "Debug.h"
 #include "Pixels.h"
 #include "Point.h"
 #include "Lines.h"
 #include "Shapes.h"
+#include "Text.h"
 #include "Tests.h"
 #include "RetroFromFuture.h"
 
@@ -50,6 +52,8 @@ void setup() {
 }
 
 void loop() {
+  AlphabetSoup();
+  FastLED.delay(1000);
   //OneAtATime();
   //DrawXYRects();
   //EtchSketch();
@@ -61,14 +65,14 @@ void loop() {
   //  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
 
   int rate = 60;
-  GrowFromCenter(0, fgColor, rate);
-  FlipBottomToFront(fgColor, rate);
-    FlipFrontToLeft(fgColor, rate);
-    FlipLeftToBack(fgColor, rate);
-    FlipBackToBottom(fgColor, rate);
-  ShrinkToCenter(0, fgColor, rate);
+//  GrowFromCenter(0, fgColor, rate);
+//  FlipBottomToFront(fgColor, rate);
+//    FlipFrontToLeft(fgColor, rate);
+//    FlipLeftToBack(fgColor, rate);
+//    FlipBackToBottom(fgColor, rate);
+//  ShrinkToCenter(0, fgColor, rate);
 
-  SlidingCubes();
+  //SlidingCubes();
   //FlipFrontToRight(fgColor, rate);
   //FlipBackToRight(fgColor, rate);
 
