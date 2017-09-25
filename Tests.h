@@ -1,11 +1,12 @@
 void OneAtATime()
 {
   for (int i = 0; i < NUM_LEDS; i++) {
-    leds[ i ] = CRGB::Blue;
+    leds[ i ] = CRGB::Green;
     FastLED.delay(100);
     leds[ i ] = CRGB::Black;
   }
 }
+
 
 void DrawDiagonal(CRGB c)
 {
@@ -45,3 +46,45 @@ void DrawXYRects()
 //  }
 //  delay(100);
 //}
+
+
+
+
+//OneAtATime();
+//DrawXYRects();
+//EtchSketch();
+//RetroFromFuture();
+
+//  Point origin = {0,0,0};
+//  Point rotations = {0,0,0};
+//  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
+//  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
+
+// int rate = 60;
+//  GrowFromCenter(0, fgColor, rate);
+//  FlipBottomToFront(fgColor, rate);
+//    FlipFrontToLeft(fgColor, rate);
+//    FlipLeftToBack(fgColor, rate);
+//    FlipBackToBottom(fgColor, rate);
+//  ShrinkToCenter(0, fgColor, rate);
+
+//SlidingCubes();
+//FlipFrontToRight(fgColor, rate);
+//FlipBackToRight(fgColor, rate);
+
+//FastLED.delay(1000);
+//  SetAll(bgColor);
+//  FastLED.delay(1000);
+
+//  byte nTimes = 3;
+//  BouncePlane(1, nTimes, fgColor, 100); SetAll(bgColor);
+//  BouncePlane(2, nTimes, fgColor, 100); SetAll(bgColor);
+//  BouncePlane(3, nTimes, fgColor, 100); SetAll(bgColor);
+//
+
+//  byte nTimes = 3;
+//  byte rate = 100;
+//  FillCube(1, nTimes, fgColor, rate);
+//  FillCube(2, nTimes, fgColor, rate);
+//  FillCube(3, nTimes, fgColor, rate);
+

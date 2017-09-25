@@ -43,8 +43,8 @@ CRGB fgColor = CRGB::White;
 #include "Text.h"
 #include "Anim_Wires.h"
 #include "Anim_Solids.h"
-#include "Tests.h"
 #include "RetroFromFuture.h"
+#include "Tests.h"
 
 void setup() {
   //Serial.begin(9600);
@@ -53,33 +53,5 @@ void setup() {
   FastLED.show();
 }
 
-
-//OneAtATime();
-//DrawXYRects();
-//EtchSketch();
-//RetroFromFuture();
-
-//  Point origin = {0,0,0};
-//  Point rotations = {0,0,0};
-//  FlipSlant(origin, 0,7, CRGB::Red, 70, rotations);
-//  FlipSlant(origin, 6,0, CRGB::Red, 70, rotations);
-
-// int rate = 60;
-//  GrowFromCenter(0, fgColor, rate);
-//  FlipBottomToFront(fgColor, rate);
-//    FlipFrontToLeft(fgColor, rate);
-//    FlipLeftToBack(fgColor, rate);
-//    FlipBackToBottom(fgColor, rate);
-//  ShrinkToCenter(0, fgColor, rate);
-
-//SlidingCubes();
-//FlipFrontToRight(fgColor, rate);
-//FlipBackToRight(fgColor, rate);
-
-//FastLED.delay(1000);
-//  SetAll(bgColor);
-//  FastLED.delay(1000);
-
 void loop() {
-  RetroFromFuture();
 }

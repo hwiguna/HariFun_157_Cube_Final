@@ -152,8 +152,8 @@ void SlidingCubes()
 void RetroFromFuture()
 {
   byte rate = 60;
-  DrawText(F("HELLO YOUTUBE   "));
-  FastLED.delay(1000);
+//  DrawText(F("HELLO YOUTUBE   "));
+//  FastLED.delay(1000);
 
   GrowFromCenter(0, fgColor, rate);
   FastLED.delay(500);
@@ -166,11 +166,11 @@ void RetroFromFuture()
   ShrinkToCenter(0, fgColor, rate);
   FastLED.delay(1000);
 
-  SlidingCubes();
-  FastLED.delay(500);
-  LiftUp(rate * 2);
-
-  Rain();
-  FastLED.delay(1000);
+//  SlidingCubes();
+//  FastLED.delay(500);
+//  LiftUp(rate * 2);
+//
+//  Rain();
+//  FastLED.delay(1000);
 }
 
