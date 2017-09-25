@@ -43,6 +43,7 @@ CRGB fgColor = CRGB::White;
 #include "Text.h"
 #include "Anim_Wires.h"
 #include "Anim_Solids.h"
+#include "SpectrumAnalyzer.h"
 #include "RetroFromFuture.h"
 #include "Tests.h"
 
@@ -51,7 +52,10 @@ void setup() {
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(bgColor);
   FastLED.show();
+  setupSpectrumAnalyzer();
 }
 
 void loop() {
+  loopSpectrumAnalyzer();
 }
+
