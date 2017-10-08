@@ -48,14 +48,16 @@ CRGB fgColor = CRGB::White;
 #include "Tests.h"
 
 void setup() {
-  //Serial.begin(9600);
+  Serial.begin(9600);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(bgColor);
   FastLED.show();
-  setupSpectrumAnalyzer();
+  //setupSpectrumAnalyzer();
 }
 
 void loop() {
-  loopSpectrumAnalyzer();
+  //loopSpectrumAnalyzer();
+  //OneAtATime();
+  RetroFromFuture();
 }
 

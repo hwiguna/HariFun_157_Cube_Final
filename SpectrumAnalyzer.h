@@ -35,19 +35,24 @@ long sum = 0;
     int raw = analogRead(dcInPin); // Read analog data from MSGEQ7
     int constrainedValue = constrain(raw, lowThreshold, highThreshold); // Use pots to only pay attention to a subset of each band.
     int spectrumValue = map(constrainedValue, lowThreshold, highThreshold, 0,255); // Map the filtered data to the cube coordinate.
-//    Serial.print(spectrumValue);
+//    Serial.print(raw);
 //    Serial.print(" ");
-if (i!=4)
     sum += spectrumValue;
+
+    analogWrite(7+i, spectrumValue);
+//    if (i==0) {
+//      for (byte j=0; j<8; j++) digitalWrite(7+j,LOW);
+//      for (byte j=0; j<spectrumValue; j++) digitalWrite(7+spectrumValue,HIGH);
+//    }
     
     digitalWrite(strobePin, HIGH); // Get ready for next strobe
   }
 
           int spectrumValue = map(sum, 0, 6*255, -1,7); // Map the filtered data to the cube coordinate.
-
+    
     DrawLine(0,0,0, 0,7,0, CRGB::Black);
     if (spectrumValue>=0) DrawLine(0,0,0, 0,spectrumValue,0, CRGB::Blue);
-FastLED.delay(10);
-  //Serial.println();
+    FastLED.delay(10);
+//  Serial.println();
 }
 

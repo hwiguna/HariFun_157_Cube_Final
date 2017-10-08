@@ -118,7 +118,7 @@ void DrawText(String msg)
         byte myChar = pgm_read_byte(&(alphabets[alphabetIndex][col]));
 
         if (col < 5) isOn = bitRead( myChar, row ) == 1;
-        SetPixel(numCols - 1, row, 0, isOn ? CRGB::Blue : CRGB::Black); // We ALWAYS draw on the rightmost column, the shift loop below will scroll it leftward.
+        SetPixel(numCols - 1, row, 0, isOn ? fgColor : CRGB::Black); // We ALWAYS draw on the rightmost column, the shift loop below will scroll it leftward.
       }
       FastLED.delay(100);
     }
