@@ -10,26 +10,59 @@
 //  }
 //}
 
-bool HasCloud()
+bool HasOn()
 {
-  bool hasCloud = false;
-//  for (int x = 0; x < 8; x++)
-//    for (int z = 0; z < 8; z++) {
-//      if (leds[ ToIndex(x, 7, z) ] != CRGB::Black ) {
-//        hasCloud = true;
-//        break;
-//      }
-//    }
-  return hasCloud;
+  bool hasOn = false;
+  for (int x = 0; x < 8; x++)
+    for (int y = 0; y < 8; y++)
+      for (int z = 0; z < 8; z++) {
+        CRGB c = leds[ ToIndex(x, y, z) ];
+        if ( c.red || c.green || c.blue ) {
+          hasOn = true;
+          break;
+        }
+      }
+  return hasOn;
 }
 
 void Rain()
 {
-  while (HasCloud())
-  {
+  //-- Create random list of top XY plane pixels --
+  byte seq[64];
 
+  for (byte i = 0; i < 64; i++)
+    seq[i] = i;
+
+  for (byte i = 0; i < 64; i++) {
+    byte randomIndex = random(0, 64);
+    byte t = seq[i];
+    seq[i] = seq[ randomIndex];
+    seq[randomIndex] = t;
   }
 
+  byte i = 0;
+  while (HasOn()) {      
+      for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+          for (int z = 0; z < 8; z++) {
+            int srcIndex =  ToIndex(x, y, z);
+            if (y!=7 || (x == seq[i] % 8 && z==seq[i] / 8)) {
+              CRGB t = leds[ srcIndex ];
+              int dest = y - 1;
+              if (dest >= 0) {
+                int destIndex = ToIndex(x, dest, z);
+                leds[ destIndex ] = leds[ srcIndex ]; // Copy to the pixel below it
+              }
+              leds[srcIndex] = CRGB::Black; // Erase the pixel at previous location
+            } // if needs to move this pixel
+          } // for z
+        } // for x
+      } // for y
+      
+    FastLED.delay(100);
+    if (i<64) i++;
+
+  } // while HasOn
 }
 
 void LiftUp(int animRate)
@@ -38,7 +71,7 @@ void LiftUp(int animRate)
   {
     for (int x = 0; x < 8; x++)
       for (int z = 0; z < 8; z++) {
-        if ( (4+i)<=7)
+        if ( (4 + i) <= 7)
           leds[ ToIndex(x, 4 + i, z) ] = leds[ ToIndex(x, 3 + i, z) ];
         leds[ ToIndex(x, i, z) ] = CRGB::Black;
       }
@@ -113,19 +146,31 @@ void SlidingCubes()
     FastLED.delay(animRate);
     if (i > 0) DrawCube(a1, b1, CRGB::Black);
   }
-
-  delay(1000);
-
-  LiftUp(animRate * 2);
-  Rain();
-
-  delay(1000);
-
-  FastLED.clear();
 }
 
-//void RetroFromFuture()
-//{
-//  SuperNova(500,500, CRGB::Red);
-//}
+
+void RetroFromFuture()
+{
+  byte rate = 60;
+//  DrawText(F("HELLO YOUTUBE   "));
+//  FastLED.delay(1000);
+
+  GrowFromCenter(0, fgColor, rate);
+  FastLED.delay(500);
+
+  FlipBottomToFront(fgColor, rate);
+  FlipFrontToLeft(fgColor, rate);
+  FlipLeftToBack(fgColor, rate);
+  FlipBackToBottom(fgColor, rate);
+
+  ShrinkToCenter(0, fgColor, rate);
+  FastLED.delay(1000);
+
+//  SlidingCubes();
+//  FastLED.delay(500);
+//  LiftUp(rate * 2);
+//
+//  Rain();
+//  FastLED.delay(1000);
+}
 
