@@ -19,3 +19,9 @@ void SetPixel(int x, int y, int z, CRGB c)
       z>=0 && z<8)
   leds[ ToIndex(x,y,z) ] = c;
 }
+
+void rDelay(int miliseconds)
+{
+  vTaskDelay(miliseconds / portTICK_PERIOD_MS);
+}
+
