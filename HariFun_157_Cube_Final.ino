@@ -3,7 +3,7 @@
 // By Hari Wiguna, 2017
 //
 // WIRING:
-// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D3
+// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D2
 // I put a 470uF Electrolytic capacitor at the base of each of the four modules.
 //
 // Coordinate system:
@@ -35,7 +35,14 @@ CRGB leds[NUM_LEDS];
 CRGB bgColor = CRGB::Black; // {0,0,64};
 CRGB fgColor = CRGB::White;
 
+// https://github.com/feilipu/Arduino_FreeRTOS_Library
+#include <Arduino_FreeRTOS.h>
+
+int animRate = 50;
+int refreshRate = 50;
+
 #include "Debug.h"
+#include "Inputs.h"
 #include "Pixels.h"
 #include "Point.h"
 #include "Lines.h"
@@ -46,18 +53,23 @@ CRGB fgColor = CRGB::White;
 #include "SpectrumAnalyzer.h"
 #include "RetroFromFuture.h"
 #include "Tests.h"
+#include "RTOS.h"
 
 void setup() {
   Serial.begin(9600);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(bgColor);
   FastLED.show();
+  SetupInputs();
   //setupSpectrumAnalyzer();
+  SetupRTOS();
 }
 
 void loop() {
   //loopSpectrumAnalyzer();
   //OneAtATime();
-  RetroFromFuture();
+  //RetroFromFuture();
+  
+  //FastLED.delay(refreshRate);
 }
 

@@ -71,13 +71,15 @@ void BouncePlane(byte which, byte nTimes, CRGB c, byte rate)
   {
     for (int x= 0; x < 8; x++) {
       DrawPlane(which, x, c);
-      FastLED.delay(rate);
+      //FastLED.delay(rate);
+      rDelay(rate);
       DrawPlane(which, x, bgColor);
     }
 
     for (int x = 7; x > 0; x--) {
       DrawPlane(which, x, c);
-      FastLED.delay(rate);
+      //FastLED.delay(rate);
+      rDelay(rate);
       DrawPlane(which, x, bgColor);
     }
   }
