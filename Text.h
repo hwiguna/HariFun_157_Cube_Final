@@ -72,6 +72,13 @@ void ShiftRightOnBackFace(byte row)
     leds[ ToIndex(i, row, 7) ] = leds[ ToIndex(i-1, row, 7) ];
 }
 
+void ShiftRightOnFrontFace(byte row)
+{
+  // Shift everything one pixel right (on the back face)
+  for (byte i = 7; i > 0; i--)
+    leds[ ToIndex(i, row, 0) ] = leds[ ToIndex(i-1, row, 0) ];
+}
+
 void ShiftBackOnLeftFace(byte row)
 {
   // Shift everything one pixel towards the back
