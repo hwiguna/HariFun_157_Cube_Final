@@ -1,12 +1,13 @@
 void AnimWrapper1(void *pvParameters )
 {
   for (;;) {
-    if (Pressed[0]) {
-      Pressed[0] = false;
-      SineWave();
-    }
-    else
-      rDelay(150);
+    OneAtATime();
+//    if (Pressed[0]) {
+//      Pressed[0] = false;
+//      SineWave();
+//    }
+//    else
+//      rDelay(150);
   }
 }
 
@@ -14,12 +15,14 @@ void AnimWrapper2(void *pvParameters )
 {
   
   for (;;) {
-    if (Pressed[1]) {
-      Pressed[1] = false;
-      GrowFromCenter(0, CRGB::Red, animRate);
-    }
-    else
-      rDelay(150);
+    byte nTimes = 3;
+    BouncePlane(1, nTimes, CRGB::Blue, 100);
+//    if (Pressed[1]) {
+//      Pressed[1] = false;
+//      GrowFromCenter(0, CRGB::Red, animRate);
+//    }
+//    else
+//      rDelay(150);
   }
 }
 
@@ -38,7 +41,7 @@ void SetupRTOS()
   xTaskCreate(
     AnimWrapper1
     ,  (const portCHAR *)"Task1"   // A name just for humans
-    ,  512  // This stack size can be checked & adjusted by reading the Stack Highwater
+    ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
     ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,  NULL );
@@ -52,12 +55,12 @@ void SetupRTOS()
     ,  NULL );
 
     
-  xTaskCreate(
-    buttonWrapper
-    ,  (const portCHAR *)"buttonWrapper"   // A name just for humans
-    ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
-    ,  NULL
-    ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-    ,  NULL );
+//  xTaskCreate(
+//    buttonWrapper
+//    ,  (const portCHAR *)"buttonWrapper"   // A name just for humans
+//    ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
+//    ,  NULL
+//    ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+//    ,  NULL );
 }
 

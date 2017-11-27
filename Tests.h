@@ -1,7 +1,7 @@
 void OneAtATime()
 {
   for (int i = 0; i < NUM_LEDS; i++) {
-    leds[ i ] = CRGB::Blue;
+    leds[ i ] = CRGB::White;
     //FastLED.delay(100);
     vTaskDelay(animRate / portTICK_PERIOD_MS);
     leds[ i ] = CRGB::Black;

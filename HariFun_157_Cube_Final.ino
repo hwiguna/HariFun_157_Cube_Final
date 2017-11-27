@@ -38,7 +38,7 @@ CRGB fgColor = CRGB::White;
 // https://github.com/feilipu/Arduino_FreeRTOS_Library
 #include <Arduino_FreeRTOS.h>
 
-int animRate = 50;
+int animRate = 100; //50;
 int refreshRate = 50;
 
 #include "Debug.h"
@@ -70,6 +70,6 @@ void loop() {
   //OneAtATime();
   //RetroFromFuture();
   
-  //FastLED.delay(refreshRate);
+  FastLED.delay(refreshRate);
 }
 
