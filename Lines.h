@@ -87,6 +87,13 @@ void DrawLine(Point a, Point b, CRGB c)
   Bresenham3D(a.x, a.y, a.z, b.x, b.y, b.z, c);
 }
 
+void DrawZLine(int x, int y, CRGB c)
+{
+  Point a = {x,y,0};
+  Point b = {x,y,7};
+  DrawLine(a,b,c);
+}
+
 void DrawPoly(Point points[], CRGB c, byte numPoints = 4)
 {
   //int numPoints = sizeof(*points); // sizeof works most of the time except for FlipFrontToLeft(). Very odd...

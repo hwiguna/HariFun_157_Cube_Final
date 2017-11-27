@@ -93,6 +93,49 @@ void ShiftLeftOnFrontFace(byte row)
     leds[ ToIndex(i, row, 0) ] = leds[ ToIndex(i + 1, row, 0) ];
 }
 
+void Recede()
+{
+  for (byte z = 0; z < 7; z++) {
+  for (byte x = 0; x < 7; x++)
+  for (byte y = 0; y < 7; y++)
+    leds[ ToIndex(x, y, z+1) ] = leds[ ToIndex(x, y, z) ]; // copy to layer behind this one
+    DrawXYPlane(z, CRGB::Black); // Erase this layer
+    rDelay(100);
+  }
+}
+
+void ComingTowards()
+{
+  for (byte z = 7; z > 0; z--) {
+  for (byte x = 0; x < 7; x++)
+  for (byte y = 0; y < 7; y++)
+    leds[ ToIndex(x, y, z-1) ] = leds[ ToIndex(x, y, z) ]; // copy to layer behind this one
+    DrawXYPlane(z, CRGB::Black); // Erase this layer
+    rDelay(100);
+  }
+}
+
+void DrawChar(int xOffset, int yOffset, int zOffset, char ch)
+{
+  int alphabetIndex = ch - ' ';
+    if (alphabetIndex < 0) alphabetIndex = 0;
+
+    //-- Draw one character of the message --
+    // Each character is only 5 columns wide, but I loop two more times to create 2 pixel space betwen characters
+    for (int col = 0; col < 7-xOffset; col++)
+    {
+      for (int row = 0; row < 8-yOffset; row++)
+      {
+        // Set the pixel to what the alphabet say for columns 0 thru 4, but always leave columns 5 and 6 blank.
+        bool isOn = 0;
+        byte myChar = pgm_read_byte(&(alphabets[alphabetIndex][col]));
+
+        if (col < 5) isOn = bitRead( myChar, row ) == 1;
+        SetPixel(xOffset+col, yOffset+row, zOffset, isOn ? fgColor : CRGB::Black); // We ALWAYS draw on the rightmost column, the shift loop below will scroll it leftward.
+      }
+      //rDelay(animRate);
+    }
+}
 
 void DrawText(String msg)
 {

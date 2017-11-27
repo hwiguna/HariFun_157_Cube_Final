@@ -12,48 +12,67 @@ void AnimWrapper1(void *pvParameters )
   }
 }
 
+
+void WaitFor(unsigned long timeToWaitFor)
+{
+  timeToWaitFor = timeToWaitFor + timeOffset;
+  while ((millis() - timeZero) < timeToWaitFor) {};
+}
+
 void AnimWrapper2(void *pvParameters )
 {
   for (;;) {
     
     if (effectIndex==0) {
-            timeZero = millis();
-            Serial.print('0');
-            effectIndex++;
-    }
-    if (effectIndex==1 && (millis() - timeZero) >= (timeOffset+316) ) {
+      timeZero = millis();
+      Serial.print('0');
       effectIndex++;
-      //Serial.print('1');
-      Explode(CRGB::White, 200);
-    }
-    
-    if ( effectIndex == 2 && (millis() - timeZero) >= (timeOffset+1274)) {
-      effectIndex++;
-      SetAll(CRGB::Black);
     }
 
-    if ( effectIndex == 3 && (millis() - timeZero) >= (timeOffset+1757)) {
-      effectIndex++;
-      DrawXZPlane(0, CRGB::White);
-    }
+    CRGB drumColor = CRGB::Red;
     
-    if ( effectIndex == 4 && (millis() - timeZero) >= (timeOffset+1918)) {
-      effectIndex++;
-      DrawXZPlane(1, CRGB::White);
-    }
+    WaitFor(316); Explode(CRGB::White, 200);
+    WaitFor(1274); SetAll(CRGB::Black);
     
-    if ( effectIndex == 5 && (millis() - timeZero) >= (timeOffset+2079)) {
-      effectIndex++;
-      DrawXZPlane(2, CRGB::White);
-    }
+    WaitFor(1757); DrawXZPlane(0, drumColor); DrawXZPlane(1, drumColor);
+    WaitFor(1918); DrawXZPlane(2, drumColor); DrawXZPlane(3, drumColor);
+    WaitFor(2079); DrawXZPlane(4, drumColor); DrawXZPlane(5, drumColor);
+    WaitFor(2226); DrawXZPlane(6, drumColor); DrawXZPlane(7, drumColor);
+
+    WaitFor(3197); SetAll(CRGB::Black);
+
+    WaitFor(3678); DrawXZPlane(0, drumColor); DrawXZPlane(1, drumColor);
+    WaitFor(3836); DrawXZPlane(2, drumColor); DrawXZPlane(3, drumColor);
+    WaitFor(3997); DrawXZPlane(4, drumColor); DrawXZPlane(5, drumColor);
+    WaitFor(4145); DrawXZPlane(6, drumColor); DrawXZPlane(7, drumColor);
     
-    if ( effectIndex == 6 && (millis() - timeZero) >= (timeOffset+2226)) {
-      effectIndex++;
-      DrawXZPlane(3, CRGB::White);
-    }
+    WaitFor(5117); SetAll(CRGB::Black);
+
+    WaitFor(5558); DrawXZPlane(0, drumColor); DrawXZPlane(1, drumColor);
+    WaitFor(5759); DrawXZPlane(2, drumColor); DrawXZPlane(3, drumColor);
+    WaitFor(5919); DrawXZPlane(4, drumColor); DrawXZPlane(5, drumColor);
+    WaitFor(6070); DrawXZPlane(6, drumColor); DrawXZPlane(7, drumColor);
+    
+    WaitFor(7036); SetAll(CRGB::Black);
+
+    //-- First things first...
+    WaitFor(7927); DrawChar(1,0,7, '1');
+    ComingTowards(); // Recede();
+
+    WaitFor(11352); DrawZLine(0,0, drumColor); DrawZLine(0,1, drumColor); 
+    WaitFor(11517); DrawZLine(0,2, drumColor); DrawZLine(0,3, drumColor); 
+    WaitFor(11667); DrawZLine(0,4, drumColor); DrawZLine(0,5, drumColor);  
+    WaitFor(11837); DrawZLine(0,6, drumColor); DrawZLine(0,7, drumColor); 
+
+    // Second thing
+    WaitFor(23147); SetAll(CRGB::Black); DrawChar(1,0,7, '2');
+    ComingTowards(); // Recede();
+
+    WaitFor(26000); SetAll(CRGB::Red);
+    
+    WaitFor(0xFFFFFF);
   }
 }
-
 
 void buttonWrapper(void *pvParameters )
 {
