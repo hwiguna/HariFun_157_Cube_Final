@@ -39,7 +39,11 @@ CRGB fgColor = CRGB::White;
 #include <Arduino_FreeRTOS.h>
 
 int animRate = 100; //50;
-int refreshRate = 50;
+int refreshRate = 5;
+
+unsigned long timeZero;
+unsigned long timeOffset = 500;
+int effectIndex;
 
 #include "Debug.h"
 #include "Inputs.h"
@@ -62,6 +66,8 @@ void setup() {
   FastLED.show();
   SetupInputs();
   //setupSpectrumAnalyzer();
+
+  
   SetupRTOS();
 }
 

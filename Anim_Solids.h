@@ -103,3 +103,17 @@ void FillCube(byte which, byte nTimes, CRGB c, byte rate)
   }
 }
 
+void Explode(CRGB c, byte expandRate)
+{
+  for (byte i=0; i<4; i++) {
+    Point a = {3-i, 3-i, 3-i};
+    Point b = {4+i, 4+i, 4+i};
+    DrawCube(a,b,c);
+//    for (byte j=0; j<4; j++) {
+//      DrawXYPlane(3-j, c);
+//      DrawXYPlane(4+j, c);
+//    }
+    rDelay(expandRate);
+  }
+}
+
