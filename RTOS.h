@@ -1,11 +1,15 @@
 void AnimWrapper1(void *pvParameters )
 {
   for (;;) {
-    OneAtATime();
+    //OneAtATime();
 
     //    if (Pressed[0]) {
     //      Pressed[0] = false;
-    //      SineWave();
+          //StaticWaveXY();
+          //StaticWaveYZ();
+          //WaveAnim();
+          //Rainbow(30);
+          RainbowXZ(30);
     //    }
     //    else
     //      rDelay(150);
@@ -60,37 +64,42 @@ void AnimWrapper2(void *pvParameters )
     ComingTowards(); // Recede();
 
     //9430 I'm a say all the words inside my
-    WaitFor(9430); DrawZLine(0,0, drumColor); DrawZLine(0,1, drumColor); 
-    WaitFor(9598); DrawZLine(0,2, drumColor); DrawZLine(0,3, drumColor); 
-    WaitFor(9756); DrawZLine(0,4, drumColor); DrawZLine(0,5, drumColor);  
-    WaitFor(9908); DrawZLine(0,6, drumColor); DrawZLine(0,7, drumColor); 
+    WaitFor(8940); FlashLineXAlongZ(0, drumColor);
+    WaitFor(9430); DrawXLine(0,6, drumColor); DrawXLine(0,7, drumColor);
+    WaitFor(9598); DrawXLine(0,4, drumColor); DrawXLine(0,5, drumColor); 
+    WaitFor(9756); DrawXLine(0,2, drumColor); DrawXLine(0,3, drumColor); 
+    WaitFor(9908); DrawXLine(0,1, drumColor);
 
     // Head. I'm tired of and
+    //WaitFor(8940); FlashLineXAlongZ(0, drumColor);
     WaitFor(11352); DrawZLine(1,0, drumColor); DrawZLine(1,1, drumColor); 
     WaitFor(11517); DrawZLine(1,2, drumColor); DrawZLine(1,3, drumColor); 
     WaitFor(11677); DrawZLine(1,4, drumColor); DrawZLine(1,5, drumColor);  
     WaitFor(11837); DrawZLine(1,6, drumColor); DrawZLine(1,7, drumColor); 
 
     // Tired of the way that things have been oh
+    //WaitFor(8940); FlashLineXAlongZ(0, drumColor);
     WaitFor(13237); DrawZLine(2,0, drumColor); DrawZLine(2,1, drumColor); 
     WaitFor(13436); DrawZLine(2,2, drumColor); DrawZLine(2,3, drumColor); 
     WaitFor(13586); DrawZLine(2,4, drumColor); DrawZLine(2,5, drumColor);  
     WaitFor(13748); DrawZLine(2,6, drumColor); DrawZLine(2,7, drumColor);
 
     // ooo
+    //WaitFor(8940); FlashLineXAlongZ(0, drumColor);
     WaitFor(17110); DrawZLine(3,0, drumColor); DrawZLine(3,1, drumColor); 
     WaitFor(17275); DrawZLine(3,2, drumColor); DrawZLine(3,3, drumColor); 
     WaitFor(17435); DrawZLine(3,4, drumColor); DrawZLine(3,5, drumColor);  
     WaitFor(17586); DrawZLine(3,6, drumColor); DrawZLine(3,7, drumColor);
 
     // The way that thing has been oh ooo
-    
+    //WaitFor(8940); FlashLineXAlongZ(0, drumColor);
     WaitFor(19036); DrawZLine(4,0, drumColor); DrawZLine(4,1, drumColor); 
     WaitFor(19194); DrawZLine(4,2, drumColor); DrawZLine(4,3, drumColor); 
     WaitFor(19331); DrawZLine(4,4, drumColor); DrawZLine(4,5, drumColor);  
     WaitFor(19504); DrawZLine(4,6, drumColor); DrawZLine(4,7, drumColor);
 
     // ooo
+    //WaitFor(8940); FlashLineXAlongZ(0, drumColor);
     WaitFor(20958); DrawZLine(5,0, drumColor); DrawZLine(5,1, drumColor); 
     WaitFor(21120); DrawZLine(5,2, drumColor); DrawZLine(5,3, drumColor); 
     WaitFor(21275); DrawZLine(5,4, drumColor); DrawZLine(5,5, drumColor);  
@@ -117,21 +126,21 @@ void buttonWrapper(void *pvParameters )
 
 void SetupRTOS()
 {
-//  xTaskCreate(
-//    AnimWrapper1
-//    ,  (const portCHAR *)"Task1"   // A name just for humans
-//    ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
-//    ,  NULL
-//    ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-//    ,  NULL );
-
   xTaskCreate(
-    AnimWrapper2
-    ,  (const portCHAR *)"Task2"   // A name just for humans
+    AnimWrapper1
+    ,  (const portCHAR *)"Task1"   // A name just for humans
     ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
     ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,  NULL );
+
+//  xTaskCreate(
+//    AnimWrapper2
+//    ,  (const portCHAR *)"Task2"   // A name just for humans
+//    ,  128  // This stack size can be checked & adjusted by reading the Stack Highwater
+//    ,  NULL
+//    ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+//    ,  NULL );
 
 
   //  xTaskCreate(

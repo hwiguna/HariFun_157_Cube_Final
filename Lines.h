@@ -87,6 +87,20 @@ void DrawLine(Point a, Point b, CRGB c)
   Bresenham3D(a.x, a.y, a.z, b.x, b.y, b.z, c);
 }
 
+void DrawXLine(int y, int z, CRGB c)
+{
+  Point a = {0,y,z};
+  Point b = {7,y,z};
+  DrawLine(a,b,c);
+}
+
+void DrawYLine(int x, int z, CRGB c)
+{
+  Point a = {x,0,z};
+  Point b = {x,7,z};
+  DrawLine(a,b,c);
+}
+
 void DrawZLine(int x, int y, CRGB c)
 {
   Point a = {x,y,0};

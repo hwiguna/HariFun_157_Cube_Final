@@ -290,6 +290,65 @@ void ShrinkToCenter(byte y, CRGB c, byte rate)
   }
 }
 
+
+void WaveAnim() // This works pretty good at an angle
+{
+  float maxAmp = 2.0;
+
+  for (float a0 = 0; a0 < 2*PI; a0 += (PI / 8)) {
+    for (int x = 0; x < 8; x++) {
+      float a =  a0 + (PI * x / 8);
+      for (int z = 0; z < 8; z++) {
+        float b =  a0 + (PI * z / 8);
+        int y = maxAmp + (sin(a) * maxAmp + sin(b) * maxAmp);
+        SetPixel(x, y, z, CRGB::Blue);
+      }
+    }
+    rDelay(animRate);
+    SetAll(bgColor);
+  }
+}
+
+
+void StaticWaveYZ()
+{
+  float maxAmp = 2.0;
+
+  int x = 0;
+  for (float a0 = 0; a0 < PI; a0 += (PI / 8))
+  {
+    for (int z = 0; z < 8; z++)
+    {
+      float a =  a0 + (PI * z / 6);
+      int y = maxAmp + (sin(a) * maxAmp);
+      SetPixel(x, y, z, CRGB::Blue);
+      SetPixel(z, y, x, CRGB::Blue);
+      //DrawLine(x, y, z, x0+x, y, z + 7, CRGB::Blue);
+    }
+    rDelay(animRate);
+    SetAll(bgColor);
+  }
+}
+
+void StaticWaveXY()
+{
+  float maxAmp = 3.5;
+
+  int z = 0;
+  for (float a0 = 0; a0 < PI; a0 += (PI / 8))
+  {
+    for (int x = 0; x < 8; x++)
+    {
+      float a =  a0 + (PI * x / 6);
+      int y = maxAmp + (sin(a) * maxAmp);
+      SetPixel(x, y, z, CRGB::Blue);
+      //DrawLine(x, y, z, x0+x, y, z + 7, CRGB::Blue);
+    }
+    rDelay(animRate);
+    SetAll(bgColor);
+  }
+}
+
 void SineWave()
 {
   int z = 0;
@@ -322,6 +381,15 @@ void SineWave()
       rDelay(animRate);
       SetAll(bgColor);
     }
+  }
+}
+
+void FlashLineXAlongZ(int y, CRGB c)
+{
+  for (int z = 1; z < 8; z++)
+  {
+    DrawXLine(y, z, c);
+    rDelay(50);
   }
 }
 
