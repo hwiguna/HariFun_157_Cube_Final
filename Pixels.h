@@ -1,4 +1,8 @@
 //=== Pixel Routines ===
+//ToIndex(int x, int y, int z)
+//SetAll(CRGB c)
+//SetPixel(int x, int y, int z, CRGB c)
+//rDelay(int miliseconds)
 
 int ToIndex(int x, int y, int z)
 {

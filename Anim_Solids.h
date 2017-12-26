@@ -18,7 +18,7 @@ void FlapBottomToFront(CRGB c, int rate)
     }
 
     DrawPairs(points, c, n);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPairs(points, bgColor, n);
   }
 
@@ -33,7 +33,7 @@ void FlapBottomToFront(CRGB c, int rate)
     }
 
     DrawPairs(points, c, n);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i != 0) DrawPairs(points, bgColor, n);
   }
 }
@@ -44,13 +44,13 @@ void FlapBottomToFront(CRGB c, int rate)
 //  {
 //    for (int z = 0; z < 8; z++) {
 //      DrawXYPlane(z, c);
-//      FastLED.delay(rate);
+//      rDelay(rate);
 //      DrawXYPlane(z, bgColor);
 //    }
 //
 //    for (int z = 7; z > 0; z--) {
 //      DrawXYPlane(z, c);
-//      FastLED.delay(rate);
+//      rDelay(rate);
 //      DrawXYPlane(z, bgColor);
 //    }
 //  }
@@ -71,14 +71,14 @@ void BouncePlane(byte which, byte nTimes, CRGB c, byte rate)
   {
     for (int x = 0; x < 8; x++) {
       DrawPlane(which, x, c);
-      //FastLED.delay(rate);
+      //rDelay(rate);
       rDelay(rate);
       DrawPlane(which, x, bgColor);
     }
 
     for (int x = 7; x > 0; x--) {
       DrawPlane(which, x, c);
-      //FastLED.delay(rate);
+      //rDelay(rate);
       rDelay(rate);
       DrawPlane(which, x, bgColor);
     }
@@ -91,14 +91,14 @@ void FillCube(byte which, byte nTimes, CRGB c, byte rate)
   {
     for (int i = 0; i < 8; i++) {
       DrawPlane(which, i, c);
-      FastLED.delay(rate);
+      rDelay(rate);
     }
 
-    FastLED.delay(1000);
+    rDelay(1000);
 
     for (int i = 0; i < 8; i++) {
       DrawPlane(which, i, bgColor);
-      FastLED.delay(rate);
+      rDelay(rate);
     }
   }
 }
@@ -117,8 +117,6 @@ void Explode(CRGB c, byte expandRate)
   }
 }
 
-
-
 // Input a value 0 to 255 to get a color value.
 // The colours are a transition r - g - b - back to r.
 // Thanks to mattnupen: https://codebender.cc/sketch:80438#Neopixel%20Rainbow.ino
@@ -135,9 +133,6 @@ CRGB Wheel(byte WheelPos) {
     return CRGB(0, WheelPos * 3, 255 - WheelPos * 3);
   }
 }
-
-
-
 
 void Rainbow(uint8_t wait) {
   uint16_t i, j;

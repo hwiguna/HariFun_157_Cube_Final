@@ -13,7 +13,6 @@ void SetupInputs()
 
 void ReadButtons()
 {
-  for (;;)
     for (int pin = button00; pin <= buttonMax; pin++)
       if (digitalRead(pin) == LOW) {
         Pressed[ pin - button00 ] = true;

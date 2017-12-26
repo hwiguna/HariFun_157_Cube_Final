@@ -20,7 +20,7 @@ void FlipSlant(Point origin, int from, int to, CRGB c, int rate, Point rotations
       // Draw connecting lines
       DrawLine(origin.x,         origin.y, origin.z,  origin.x,             origin.y + i, origin.z + offset.z, kolor);
       DrawLine(origin.x + width.x, origin.y, origin.z,  origin.x + width.x, origin.y + i, origin.z + offset.z, kolor);
-      if (ci == 0) FastLED.delay(rate);
+      if (ci == 0) rDelay(rate);
     }
   }
 
@@ -47,7 +47,7 @@ void FlipBottomToFront(CRGB c, int rate)
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor);
   }
 
@@ -61,7 +61,7 @@ void FlipBottomToFront(CRGB c, int rate)
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i != 0) DrawPoly(points, bgColor);
   }
 }
@@ -85,7 +85,7 @@ void FlipFrontToRight(CRGB c, int rate)
     points[3] = {origin.x,           origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor);
   }
 
@@ -99,7 +99,7 @@ void FlipFrontToRight(CRGB c, int rate)
     points[3] = {origin.x,     origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i != 0) DrawPoly(points, bgColor);
   }
 }
@@ -123,7 +123,7 @@ void FlipFrontToLeft(CRGB c, int rate)
     points[3] = {origin.x,           origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor);
   }
 
@@ -137,7 +137,7 @@ void FlipFrontToLeft(CRGB c, int rate)
     points[3] = {origin.x,     origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i != 0) DrawPoly(points, bgColor);
   }
 }
@@ -161,7 +161,7 @@ void FlipLeftToBack(CRGB c, int rate)
     points[3] = {origin.x,           origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor);
   }
 
@@ -175,7 +175,7 @@ void FlipLeftToBack(CRGB c, int rate)
     points[3] = {origin.x,           origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i < 7) DrawPoly(points, bgColor);
   }
 }
@@ -199,7 +199,7 @@ void FlipBackToRight(CRGB c, int rate)
     points[3] = {origin.x,           origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor);
   }
 
@@ -213,7 +213,7 @@ void FlipBackToRight(CRGB c, int rate)
     points[3] = {origin.x,           origin.y + offset.y, origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i < 7) DrawPoly(points, bgColor);
   }
 }
@@ -237,7 +237,7 @@ void FlipBackToBottom(CRGB c, int rate)
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor);
   }
 
@@ -251,7 +251,7 @@ void FlipBackToBottom(CRGB c, int rate)
     points[3] = {origin.x + width.x, origin.y,     origin.z};
 
     DrawPoly(points, c);
-    FastLED.delay(rate);
+    rDelay(rate);
     if (i != 0) DrawPoly(points, bgColor);
   }
 }
@@ -269,7 +269,7 @@ void GrowFromCenter(byte y, CRGB c, byte rate)
 
     DrawPoly(points, c, 5);
     rDelay(rate);
-    if (i < 3) DrawPoly(points, bgColor, 5);
+    if (i < 3) DrawPoly(points, bgColor, 5);  // Don't erase the last frame
   }
 }
 
@@ -285,11 +285,10 @@ void ShrinkToCenter(byte y, CRGB c, byte rate)
     points[4] = {3 - i, y, 3 - i}; // back to point 0
 
     DrawPoly(points, c, 5);
-    FastLED.delay(rate);
+    rDelay(rate);
     DrawPoly(points, bgColor, 5);
   }
 }
-
 
 void WaveAnim() // This works pretty good at an angle
 {
@@ -308,7 +307,6 @@ void WaveAnim() // This works pretty good at an angle
     SetAll(bgColor);
   }
 }
-
 
 void StaticWaveYZ()
 {
@@ -392,4 +390,3 @@ void FlashLineXAlongZ(int y, CRGB c)
     rDelay(50);
   }
 }
-

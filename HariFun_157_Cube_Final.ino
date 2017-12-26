@@ -67,15 +67,11 @@ void setup() {
   SetupInputs();
   //setupSpectrumAnalyzer();
 
-  
   SetupRTOS();
 }
 
 void loop() {
   //loopSpectrumAnalyzer();
-  //OneAtATime();
-  //RetroFromFuture();
-  
-  FastLED.delay(refreshRate);
+  FastLED.delay(refreshRate); // This should be the ONLY FastLED.delay() All others should be just RTOS delays.
 }
 

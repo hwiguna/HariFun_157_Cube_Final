@@ -1,3 +1,12 @@
+//== Shape Routines ==
+//DrawXYPlane(byte z, CRGB c)
+//DrawYZPlane(byte x, CRGB c)
+//DrawXZPlane(byte y, CRGB c)
+//DrawXYRect(Point a, Point b, CRGB c)
+//DrawYZRect(Point a, Point b, CRGB c)
+//DrawBox(Point a, Point b, CRGB c)
+//DrawCube(Point a, Point b, CRGB c)
+
 void DrawXYPlane(byte z, CRGB c)
 {
   for (byte x = 0; x < 8; x++)

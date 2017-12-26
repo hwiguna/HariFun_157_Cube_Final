@@ -1,4 +1,10 @@
 //== Line Routines ===
+//DrawLine(Point a, Point b, CRGB c)
+//DrawXLine(int y, int z, CRGB c)
+//DrawYLine(int x, int z, CRGB c)
+//DrawZLine(int x, int y, CRGB c)
+//DrawPoly(Point points[], CRGB c, byte numPoints = 4)
+//DrawPairs(Point points[], CRGB c, byte numPoints = 4)
 
 void Bresenham3D(int x1, int y1, int z1, int x2, int y2, int z2, CRGB c)
 {

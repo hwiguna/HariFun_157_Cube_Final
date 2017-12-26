@@ -2,12 +2,11 @@ void OneAtATime()
 {
   for (int i = 0; i < NUM_LEDS; i++) {    
     leds[ i ] = CRGB::White;
-    //FastLED.delay(100);
+    //rDelay(100);
     vTaskDelay(animRate / portTICK_PERIOD_MS);
     leds[ i ] = CRGB::Black;
   }
 }
-
 
 void DrawDiagonal(CRGB c)
 {
@@ -49,8 +48,6 @@ void DrawXYRects()
 //}
 
 
-
-
 //OneAtATime();
 //DrawXYRects();
 //EtchSketch();
@@ -73,9 +70,9 @@ void DrawXYRects()
 //FlipFrontToRight(fgColor, rate);
 //FlipBackToRight(fgColor, rate);
 
-//FastLED.delay(1000);
+//rDelay(1000);
 //  SetAll(bgColor);
-//  FastLED.delay(1000);
+//  rDelay(1000);
 
 //  byte nTimes = 3;
 //  BouncePlane(1, nTimes, fgColor, 100); SetAll(bgColor);
