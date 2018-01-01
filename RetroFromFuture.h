@@ -47,7 +47,6 @@ void Rain()
           for (int z = 0; z < 8; z++) {
             int srcIndex =  ToIndex(x, y, z);
             if (y!=7 || (x == seq[i] % 8 && z==seq[i] / 8)) {
-              CRGB t = leds[ srcIndex ];
               int dest = y - 1;
               if (dest >= 0) {
                 int destIndex = ToIndex(x, dest, z);

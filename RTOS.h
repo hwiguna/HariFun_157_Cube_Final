@@ -9,7 +9,8 @@ void AnimWrapper1(void *pvParameters)
                 switch (i)
                 {
                 case 0: SetAll(bgColor); break;
-                case 1: GrowFromCenter(0, fgColor, rate); break;
+                case 1: StaticHatXY(); break;
+                //case 1: GrowFromCenter(0, fgColor, rate); break;
                 case 2: ShrinkToCenter(0, fgColor, rate); break;
                 case 3: FlipBottomToFront(fgColor, rate); break;
                 case 4: FlipFrontToLeft(fgColor, rate); break;

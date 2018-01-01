@@ -146,7 +146,7 @@ void Rainbow(uint8_t wait) {
 }
 
 void RainbowXZ(uint8_t wait) {
-  uint16_t i, j, x, y, z;
+  uint16_t j, x, y, z;
 
   for (j = 0; j < 256; j++) {
     for (y = 0; y < 8; y++) {

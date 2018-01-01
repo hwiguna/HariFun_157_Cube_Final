@@ -140,7 +140,7 @@ void DrawChar(int xOffset, int yOffset, int zOffset, char ch)
 void DrawText(String msg)
 {
   int numCols = 8;
-  for (int charIndex = 0; charIndex < msg.length(); charIndex++)
+  for (unsigned int charIndex = 0; charIndex < msg.length(); charIndex++)
   {
     int alphabetIndex = msg[charIndex] - ' ';
     if (alphabetIndex < 0) alphabetIndex = 0;

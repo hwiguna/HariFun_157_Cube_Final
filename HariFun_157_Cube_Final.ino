@@ -3,7 +3,7 @@
 // By Hari Wiguna, 2017
 //
 // WIRING:
-// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D2
+// Connect DATA IN pin of first pixel via a 470 ohm resistor to Arduino DATA_PIN D3
 // I put a 470uF Electrolytic capacitor at the base of each of the four modules.
 //
 // Coordinate system:
