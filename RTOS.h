@@ -1,136 +1,35 @@
-int tIndex = 4;
+int button00 = 0;
+int button01 = 1;
+int button02 = 2;
+int button03 = 3;
+int button04 = 4;
+int button05 = 5;
+int button06 = 6;
+int button07 = 7;
 
-void ExecuteX(int btnIndex)
+void _ExecuteX(void *pvParameters)
 {
+  int btnIndex = *(int *)pvParameters;
   while (1) {
     if (Pressed[btnIndex] ) {
-    byte rate = 60;
-    switch (btnIndex)
-        {
-          case 0: SetAll(bgColor); break;
-          case 1: StaticHatXY(); break;
-          //case 1: GrowFromCenter(0, fgColor, rate); break;
-          case 2: ShrinkToCenter(0, fgColor, rate); break;
-          case 3: FlipBottomToFront(fgColor, rate); break;
-          case 4: FlipFrontToLeft(fgColor, rate); break;
-          case 5: FlipLeftToBack(fgColor, rate); break;
-          case 6: FlipBackToBottom(fgColor, rate); break;
-          case 7: SlidingCubes(); break;
-          default: break;
-        }
-        
-      Pressed[btnIndex] = false;
-    }
-    rDelay(50);
-  }
-}
-
-
-
-void _Execute4(void *pvParameters)
-{
-  
-  ExecuteX( *(int *)pvParameters );
-}
-
-void _Execute5(void *pvParameters)
-{
-  ExecuteX(5);
-}
-
-void _Execute4B(void *pvParameters)
-{
-  
-  int btnIndex = 4;
-  
-    if (Pressed[btnIndex] ) {
-    byte rate = 60;
-    FlipFrontToLeft(fgColor, rate);
-      Pressed[btnIndex] = false;
-    }
-    vTaskDelete( NULL );
-}
-
-void _Execute5B(void *pvParameters)
-{
-  
-  int btnIndex = 5;
-    if (Pressed[btnIndex] ) {
-    byte rate = 60;
-    FlipLeftToBack(fgColor, rate);
-      Pressed[btnIndex] = false;
-    }
-  vTaskDelete( NULL );
-}
-
-void AnimWrapper1(void *pvParameters)
-{
-  for (;;) {
-    for (byte i = 0; i < 11; i++) {
-      if ( (i != 9) && Pressed[i] ) {
-
-
-        byte rate = 60;
-        switch (i)
-        {
-          case 0: SetAll(bgColor); break;
-          case 1: StaticHatXY(); break;
-          //case 1: GrowFromCenter(0, fgColor, rate); break;
-          case 2: ShrinkToCenter(0, fgColor, rate); break;
-          case 3: FlipBottomToFront(fgColor, rate); break;
-          case 4:
-            xTaskCreate(
-              _Execute4B
-              , (const portCHAR *)"Task1"   // A name just for humans
-              , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-              , NULL
-              , 0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-              , NULL);
-            break;
-          case 5:
-            xTaskCreate(
-              _Execute5B
-              , (const portCHAR *)"Task1"   // A name just for humans
-              , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-              , NULL
-              , 0
-              , NULL);
-            break;
-          case 6: FlipBackToBottom(fgColor, rate); break;
-          case 7: SlidingCubes(); break;
-          default:
-            break;
-        }
-
-        //Serial.println(i);
-        Pressed[i] = false;
+      byte rate = 60;
+      byte nTimes = 1;
+      switch (btnIndex)
+      {
+        case 0: SetAll(bgColor); break;
+        case 1: BouncePlane(1, nTimes, fgColor, 100); SetAll(bgColor); break;
+        case 2: BouncePlane(2, nTimes, fgColor, 100); SetAll(bgColor); break;
+        case 3: FlipBottomToFront(fgColor, rate); break;
+        case 4: FlipFrontToLeft(fgColor, rate); break;
+        case 5: FlipLeftToBack(fgColor, rate); break;
+        case 6: FlipBackToBottom(fgColor, rate); break;
+        case 7: SlidingCubes(); break;
+        default: break;
+        //StaticHatXY();
+        //GrowFromCenter(0, fgColor, rate); 
+        //ShrinkToCenter(0, fgColor, rate); 
       }
-    }
-    rDelay(50);
-  }
-}
 
-void _ShrinkToCenter(void *pvParameters)
-{
-  int btnIndex = 2;
-  while (1) {
-    if (Pressed[btnIndex] ) {
-      byte rate = 60;
-      ShrinkToCenter(0, fgColor, rate);
-      Pressed[btnIndex] = false;
-    }
-    rDelay(50);
-  }
-}
-
-
-void _FlipBottomToFront(void *pvParameters)
-{
-  int btnIndex = 3;
-  while (1) {
-    if (Pressed[btnIndex] ) {
-      byte rate = 60;
-      FlipBottomToFront(fgColor, rate);
       Pressed[btnIndex] = false;
     }
     rDelay(50);
@@ -245,54 +144,14 @@ void buttonWrapper(void *pvParameters)
 
 void SetupRTOS()
 {
-  // I can't get task creating another task to work. :-( It just does not seem to respond (deadlock?)
-//      xTaskCreate(
-//        AnimWrapper1
-//        , (const portCHAR *)"Task1"   // A name just for humans
-//        , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-//        , NULL
-//        , 2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-//        , NULL);
-
-  xTaskCreate(
-    _ShrinkToCenter
-    , (const portCHAR *)"Task1"   // A name just for humans
-    , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-    , NULL
-    , 1 // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-    , NULL);
-
-  xTaskCreate(
-    _FlipBottomToFront
-    , (const portCHAR *)"Task1"   // A name just for humans
-    , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-    , NULL
-    , 1 // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-    , NULL);
-
-  
-  xTaskCreate(
-    _Execute4
-    , (const portCHAR *)"Task1"   // A name just for humans
-    , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-    , &tIndex
-    , 1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-    , NULL);
-
-  xTaskCreate(
-    _Execute5
-    , (const portCHAR *)"Task1"   // A name just for humans
-    , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-    , NULL
-    , 1
-    , NULL);
-
-  xTaskCreate(
-    buttonWrapper
-    , (const portCHAR *)"buttonWrapper"   // A name just for humans
-    , 128  // This stack size can be checked & adjusted by reading the Stack Highwater
-    , NULL
-    , 0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-    , NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button00, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button01, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button02, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button03, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button04, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button05, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button06, 1, NULL);
+  xTaskCreate(_ExecuteX, NULL, 128, &button07, 1, NULL);
+  xTaskCreate(buttonWrapper, NULL, 128, NULL, 0, NULL);
 }
 

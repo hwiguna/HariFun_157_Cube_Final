@@ -1,12 +1,12 @@
-const byte button00 = 4;
-const byte buttonMax = 53; // Yes, the Arduino mega has fifty digital i/o pins!
+const byte buttonPin00 = 4;
+const byte buttonPinMax = 53; // Yes, the Arduino mega has fifty digital i/o pins!
 
-bool Pressed[ buttonMax - button00];
+bool Pressed[ buttonPinMax - buttonPin00];
 unsigned long lastButtonPress = 0;
 
 void SetupInputs()
 {
-  for (byte pin = button00; pin <= buttonMax; pin++)
+  for (byte pin = buttonPin00; pin <= buttonPinMax; pin++)
   {
     pinMode(pin, INPUT_PULLUP);
   }
@@ -15,8 +15,8 @@ void SetupInputs()
 void ReadButtons()
 {
   unsigned long threshold = 100; // How fast before we consider the same button as pressed again?
-  for (int pin = button00; pin <= buttonMax; pin++) {
-    int index = pin - button00;
+  for (int pin = buttonPin00; pin <= buttonPinMax; pin++) {
+    int index = pin - buttonPin00;
     if (digitalRead(pin) == LOW && !Pressed[ index ]) {
       unsigned long timeNow = millis();
       unsigned long timeSinceThatButtonWasPressed = timeNow - lastButtonPress;
