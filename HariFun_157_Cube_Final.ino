@@ -56,6 +56,8 @@ int effectIndex;
 #include "Anim_Solids.h"
 #include "SpectrumAnalyzer.h"
 #include "RetroFromFuture.h"
+#include "Effects.h"
+#include "Believer.h"
 #include "Tests.h"
 #include "RTOS.h"
 
