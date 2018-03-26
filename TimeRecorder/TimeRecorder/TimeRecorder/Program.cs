@@ -27,9 +27,7 @@ namespace TimeRecorder
                     beginningOfTime = DateTime.Now;
 
                 // Each line is in this format: { timeStamp, char pressed },
-                string line = $"{{{(long)(DateTime.Now - beginningOfTime).TotalMilliseconds},{(int)keyInfo.KeyChar}}},{Environment.NewLine}";
-
-                var timeStamp = DateTime.Now;
+                string line = $"{{{(long)(DateTime.Now.Subtract(beginningOfTime).TotalMilliseconds)},{(int)(keyInfo.KeyChar)}}},{Environment.NewLine}";
                 recording = string.Concat(recording, line);
 
             } while (!letsQuit);

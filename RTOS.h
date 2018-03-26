@@ -62,6 +62,7 @@ void _ReadButtons(void *pvParameters)
 void SetupRTOS()
 {
   xTaskCreate(_ReadButtons, NULL, 128, NULL, 0, NULL);
+  
   xTaskCreate(_ExecuteX, NULL, 128, &button00, 1, NULL);
   xTaskCreate(_ExecuteX, NULL, 128, &button01, 1, NULL);
   xTaskCreate(_ExecuteX, NULL, 128, &button02, 1, NULL);
