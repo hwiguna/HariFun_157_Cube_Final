@@ -6,6 +6,8 @@ const byte lastButton = firstButton + 5;
 
 #include <Arduino_FreeRTOS.h>
 
+//== SETUP ==
+
 void SetupIOPorts()
 {
   for (byte i = firstLed; i <= lastLed; i++)
@@ -18,7 +20,9 @@ void SetupIOPorts()
   //pinMode(button12, INPUT_PULLUP);
 }
 
-void Effect1()
+//== EFFECTS ==
+
+void FirstToLast()
 {
   for (byte i = firstLed; i <= lastLed; i++)
   {
@@ -28,7 +32,7 @@ void Effect1()
   }
 }
 
-void Effect6()
+void LastToFirst()
 {
   for (byte i = lastLed; i >= firstLed; i--)
   {
@@ -38,118 +42,161 @@ void Effect6()
   }
 }
 
-void EffectBlink(int ledPin)
+void Marquee(int howManyTimes, int msDelay)
 {
-  for (byte n = 0; n < 3; n++)
+  for (byte n = 0; n < howManyTimes; n++)
   {
-    digitalWrite(ledPin, HIGH); // turn the LED on (HIGH is the voltage level)
-    vTaskDelay( 100 / portTICK_PERIOD_MS ); // wait for one tenth of a second
-    digitalWrite(ledPin, LOW);    // turn the LED off by making the voltage LOW
-    vTaskDelay( 100 / portTICK_PERIOD_MS ); // wait for one tenth of a second
-  }
-}
-
-void TaskButtonHandler1(void *pvParameters)
-{
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
-  {
-    if (digitalRead(firstButton) == LOW)
+    for (byte c = 0; c < 3; c++)
     {
-      Effect1();
+      for (byte i = firstLed; i <= lastLed; i++)
+      {
+        bool isOn = (i % 3) == c;
+        digitalWrite(i, isOn ? HIGH : LOW); // turn the LED on (HIGH is the voltage level)
+      }
+      vTaskDelay( msDelay / portTICK_PERIOD_MS ); // wait for one tenth of a second
     }
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
+
+    //-- Turn all off --
+    for (byte i = firstLed; i <= lastLed; i++)
+      digitalWrite(i, LOW);
   }
 }
 
-void TaskButtonHandler2(void *pvParameters)
+void MarqueeBackward(int howManyTimes, int msDelay)
 {
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+  for (byte n = 0; n < howManyTimes; n++)
   {
-    if (digitalRead(firstButton + 1) == LOW)
+    for (int c = 2; c >= 0; c--)
     {
-      EffectBlink(firstLed + 1);
+      for (byte i = firstLed; i <= lastLed; i++)
+      {
+        bool isOn = (i % 3) == c;
+        digitalWrite(i, isOn ? HIGH : LOW); // turn the LED on (HIGH is the voltage level)
+      }
+      vTaskDelay( msDelay / portTICK_PERIOD_MS ); // wait for one tenth of a second
     }
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
+
+    //-- Turn all off --
+    for (byte i = firstLed; i <= lastLed; i++)
+      digitalWrite(i, LOW);
   }
 }
-
-void TaskButtonHandler3(void *pvParameters)
-{
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+  void EffectBlink(int ledPin)
   {
-    if (digitalRead(firstButton + 2) == LOW)
+    for (byte n = 0; n < 3; n++)
     {
-      EffectBlink(firstLed + 2);
+      digitalWrite(ledPin, HIGH); // turn the LED on (HIGH is the voltage level)
+      vTaskDelay( 250 / portTICK_PERIOD_MS ); // wait for one tenth of a second
+      digitalWrite(ledPin, LOW);    // turn the LED off by making the voltage LOW
+      vTaskDelay( 250 / portTICK_PERIOD_MS ); // wait for one tenth of a second
     }
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
   }
-}
 
-void TaskButtonHandler4(void *pvParameters)
-{
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+  //== TASK HANDLERS ==
+
+  void TaskButtonHandler1(void *pvParameters)
   {
-    if (digitalRead(firstButton + 3) == LOW)
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
     {
-      EffectBlink(firstLed + 3);
+      if (digitalRead(firstButton) == LOW)
+      {
+        //EffectBlink(lastLed);
+        Marquee(3, 150);
+      }
+      vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
     }
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
   }
-}
 
-void TaskButtonHandler5(void *pvParameters)
-{
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+  void TaskButtonHandler2(void *pvParameters)
   {
-    if (digitalRead(firstButton + 4) == LOW)
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
     {
-      EffectBlink(firstLed + 4);
+      if (digitalRead(firstButton + 1) == LOW)
+      {
+        //EffectBlink(lastLed - 1);
+        MarqueeBackward(3,150);
+      }
+      vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
     }
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
   }
-}
 
-void TaskButtonHandler6(void *pvParameters)
-{
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+  void TaskButtonHandler3(void *pvParameters)
   {
-    if (digitalRead(lastButton) == LOW)
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
     {
-      Effect6();
+      if (digitalRead(firstButton + 2) == LOW)
+      {
+        EffectBlink(lastLed - 2);
+      }
+      vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
     }
-    vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
   }
-}
 
-
-void TaskBlink(void *pvParameters)
-{
-  while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+  void TaskButtonHandler4(void *pvParameters)
   {
-    digitalWrite(firstLed + 4, HIGH); // turn the LED on (HIGH is the voltage level)
-    vTaskDelay( 20 / portTICK_PERIOD_MS ); // wait for one tenth of a second
-    digitalWrite(firstLed + 4, LOW);    // turn the LED off by making the voltage LOW
-    vTaskDelay(1000 / portTICK_PERIOD_MS);  // one tick delay (15ms) in between reads for stability
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+    {
+      if (digitalRead(firstButton + 3) == LOW)
+      {
+        EffectBlink(lastLed - 3);
+      }
+      vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
+    }
   }
-}
 
-void SetupRTOS()
-{
-  //-- Setup Tasks 1 --
-  xTaskCreate(TaskButtonHandler1, NULL, 128, NULL, 2, NULL); // name, Stack size, param, Priority, handle
-  xTaskCreate(TaskButtonHandler2, NULL, 128, NULL, 2, NULL);
-  xTaskCreate(TaskButtonHandler3, NULL, 128, NULL, 2, NULL);
-  xTaskCreate(TaskButtonHandler4, NULL, 128, NULL, 2, NULL);
-  xTaskCreate(TaskButtonHandler5, NULL, 128, NULL, 2, NULL);
-  xTaskCreate(TaskButtonHandler6, NULL, 128, NULL, 2, NULL);
+  void TaskButtonHandler5(void *pvParameters)
+  {
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+    {
+      if (digitalRead(firstButton + 4) == LOW)
+      {
+        LastToFirst();
+      }
+      vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
+    }
+  }
 
-  //xTaskCreate(TaskBlink, NULL, 128, NULL, 1, NULL); // Setup blink
-}
+  void TaskButtonHandler6(void *pvParameters)
+  {
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+    {
+      if (digitalRead(lastButton) == LOW)
+      {
+        FirstToLast();
+      }
+      vTaskDelay(1);  // one tick delay (15ms) in between reads for stability
+    }
+  }
 
-void setup() {
-  SetupIOPorts();
-  SetupRTOS();
-}
 
-void loop() {}
+  void TaskBlink(void *pvParameters)
+  {
+    while (true) // This task never exits.  It's given slice of time by xTaskCreate()
+    {
+      digitalWrite(firstLed + 4, HIGH); // turn the LED on (HIGH is the voltage level)
+      vTaskDelay( 20 / portTICK_PERIOD_MS ); // wait for one tenth of a second
+      digitalWrite(firstLed + 4, LOW);    // turn the LED off by making the voltage LOW
+      vTaskDelay(1000 / portTICK_PERIOD_MS);  // one tick delay (15ms) in between reads for stability
+    }
+  }
+
+  void SetupRTOS()
+  {
+    //-- Setup Tasks 1 --
+    xTaskCreate(TaskButtonHandler1, NULL, 128, NULL, 2, NULL); // name, Stack size, param, Priority, handle
+    xTaskCreate(TaskButtonHandler2, NULL, 128, NULL, 2, NULL);
+    xTaskCreate(TaskButtonHandler3, NULL, 128, NULL, 2, NULL);
+    xTaskCreate(TaskButtonHandler4, NULL, 128, NULL, 2, NULL);
+    xTaskCreate(TaskButtonHandler5, NULL, 128, NULL, 2, NULL);
+    xTaskCreate(TaskButtonHandler6, NULL, 128, NULL, 2, NULL);
+
+    //xTaskCreate(TaskBlink, NULL, 128, NULL, 1, NULL); // Setup blink
+  }
+
+  void setup() {
+    SetupIOPorts();
+    SetupRTOS();
+  }
+
+  void loop() {}
 
