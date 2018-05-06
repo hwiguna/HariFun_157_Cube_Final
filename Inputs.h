@@ -1,5 +1,5 @@
 const byte buttonPin00 = 4;
-const byte buttonPinMax = 53; // Yes, the Arduino mega has fifty digital i/o pins!
+const byte buttonPinMax = 14; //53; // Yes, the Arduino mega has fifty digital i/o pins!
 
 bool Pressed[ buttonPinMax - buttonPin00];
 unsigned long lastButtonPress = 0;

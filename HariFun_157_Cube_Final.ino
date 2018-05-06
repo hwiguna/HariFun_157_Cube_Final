@@ -36,7 +36,7 @@ CRGB bgColor = CRGB::Black; // {0,0,64};
 CRGB fgColor = CRGB::White;
 
 // https://github.com/feilipu/Arduino_FreeRTOS_Library
-#include <Arduino_FreeRTOS.h>
+//#include <Arduino_FreeRTOS.h>
 
 int animRate = 100; //50;
 int refreshRate = 5;
@@ -59,21 +59,33 @@ int effectIndex;
 #include "Effects.h"
 #include "Believer.h"
 #include "Tests.h"
+
+#ifdef INC_ARDUINO_FREERTOS_H
 #include "RTOS.h"
+#endif
+
+//#include "Serial1.h"
+#include "Remote.h"
 
 void setup() {
   Serial.begin(9600);
+  //Serial1.begin(115200);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(bgColor);
   FastLED.show();
   SetupInputs();
   //setupSpectrumAnalyzer();
 
+#ifdef INC_ARDUINO_FREERTOS_H
   SetupRTOS();
+#endif
+  SetupRemote();
 }
 
 void loop() {
   //loopSpectrumAnalyzer();
   FastLED.delay(refreshRate); // This should be the ONLY FastLED.delay() All others should be just RTOS delays.
+
+  CheckRemote();
 }
 

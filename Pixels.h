@@ -26,6 +26,10 @@ void SetPixel(int x, int y, int z, CRGB c)
 
 void rDelay(int miliseconds)
 {
+  #ifdef INC_ARDUINO_FREERTOS_H
   vTaskDelay(miliseconds / portTICK_PERIOD_MS);
+  #else
+  delay(miliseconds);
+  #endif
 }
 
