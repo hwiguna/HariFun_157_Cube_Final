@@ -26,15 +26,16 @@
 
 /************************* WiFi Access Point *********************************/
 
-#define WLAN_SSID       "Firefly24"
-#define WLAN_PASS       "Buckbeak&Stu"
+//#define WLAN_SSID       "--- You WiFi access point id ---"
+//#define WLAN_PASS       "--- Fill this with your WiFi password ---"
+#include "../../../../Documents/Arduino/WiFiCredentials.h"
 
 /************************* Adafruit.io Setup *********************************/
 
 #define AIO_SERVER      "io.adafruit.com"
 #define AIO_SERVERPORT  1883                   // use 8883 for SSL
-#define AIO_USERNAME    "hwiguna"
-#define AIO_KEY         "a812b5a6e55b471c00c9af222bd4ea82382403e6"
+//#define AIO_USERNAME    "hwiguna"
+//#define AIO_KEY         "a812b5a6e55b471c00c9af222bd4ea82382403e6"
 
 /************ Global State (you don't need to change this!) ******************/
 

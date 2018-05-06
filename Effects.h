@@ -9,10 +9,11 @@ const byte FX_FlipFrontToLeft = 7;
 const byte FX_FlipLeftToBack = 8;
 const byte FX_FlipBackToBottom = 9;
 const byte FX_SlidingCubes = 10;
-
 const byte FX_Char1 = 11;
 const byte FX_Char2 = 12;
 const byte FX_Char3 = 13;
+const byte FX_Hat = 14;
+const byte FX_HatRainbow = 15;
 
 byte ButtonToEffect(byte buttonIndex)
 {

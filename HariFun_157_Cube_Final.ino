@@ -52,8 +52,8 @@ int effectIndex;
 #include "Lines.h"
 #include "Shapes.h"
 #include "Text.h"
-#include "Anim_Wires.h"
 #include "Anim_Solids.h"
+#include "Anim_Wires.h"
 #include "SpectrumAnalyzer.h"
 #include "RetroFromFuture.h"
 #include "Effects.h"
@@ -64,12 +64,12 @@ int effectIndex;
 #include "RTOS.h"
 #endif
 
-//#include "Serial1.h"
-#include "Remote.h"
+#include "Serial1.h"
+//#include "Remote.h"
 
 void setup() {
   Serial.begin(9600);
-  //Serial1.begin(115200);
+  Serial1.begin(115200);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   SetAll(bgColor);
   FastLED.show();
@@ -79,13 +79,18 @@ void setup() {
 #ifdef INC_ARDUINO_FREERTOS_H
   SetupRTOS();
 #endif
-  SetupRemote();
+  // SetupRemote();
+
+  inputString = "FX_Explode Blue";
+  stringComplete = true;
 }
 
 void loop() {
   //loopSpectrumAnalyzer();
-  FastLED.delay(refreshRate); // This should be the ONLY FastLED.delay() All others should be just RTOS delays.
+  //FastLED.delay(refreshRate); // This should be the ONLY FastLED.delay() All others should be just RTOS delays.
 
-  CheckRemote();
+  //CheckRemote();
+
+  ExecuteSerialCommand();
 }
 

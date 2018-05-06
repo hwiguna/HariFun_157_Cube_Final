@@ -488,3 +488,28 @@ void StaticHatXY() // Auto
         rDelay(50);
     }
 }
+
+ void StaticHatXYRainbow() // Auto
+{
+    int iterations = 2000;
+    for (int i = 0; i < iterations; i++)
+    {
+        SetAll(bgColor);
+        for (int x = 0; x < 8; x++)
+        {
+            for (int y = 0; y < 8; y++)
+            {
+                // Math from: https://www.instructables.com/id/Led-Cube-8x8x8/
+                float distance = distance2d(3.5, 3.5, x, y) / 9.899495 * 8;
+                float ripple_interval = 1.3;
+                int height = 4 + sin(distance / ripple_interval + (float)i / 3) * 4;
+
+                CRGB color = Wheel((x + height*8 + y*16) & 255);
+ 
+                SetPixel(x, height, y, color); // Flip y and z axes because horizontal plane is xy in math, but xz on my cube.
+            }
+        }
+        rDelay(50);
+    }
+}
+
