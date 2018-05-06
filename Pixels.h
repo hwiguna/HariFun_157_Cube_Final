@@ -30,7 +30,7 @@ void rDelay(int miliseconds)
   #ifdef INC_ARDUINO_FREERTOS_H
   vTaskDelay(miliseconds / portTICK_PERIOD_MS);
   #else
-  FastLED.delay(refreshRate);
+  FastLED.delay(miliseconds);
   #endif
 }
 
