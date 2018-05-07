@@ -26,11 +26,11 @@
 
 // Neopixels are driven by FastLED library by Daniel Garcia
 #include "FastLED.h"
+#define DATA_PIN 3
 
 // State of the cube is represented by the leds[] array.
 #define NUM_LEDS 512
 CRGB leds[NUM_LEDS];
-#define DATA_PIN 3
 
 CRGB bgColor = CRGB::Black; // {0,0,64};
 CRGB fgColor = CRGB::White;
@@ -80,17 +80,28 @@ void setup() {
   SetupRTOS();
 #endif
   // SetupRemote();
-
-  inputString = "FX_Explode Blue";
-  stringComplete = true;
 }
 
 void loop() {
   //loopSpectrumAnalyzer();
-  //FastLED.delay(refreshRate); // This should be the ONLY FastLED.delay() All others should be just RTOS delays.
-
-  //CheckRemote();
-
+  
+#ifdef INC_ARDUINO_FREERTOS_H
+  FastLED.delay(refreshRate); // This should be the ONLY FastLED.delay() All others should be just RTOS delays.
+#else
   ExecuteSerialCommand();
+  ExecuteButtons();
+#endif
+}
+
+void ExecuteButtons()
+{
+  ReadButtons();
+  if (Pressed[ 0 ]) SetAll(bgColor);
+  if (Pressed[ 1 ]) Size8Wide(CRGB::Red);
+  if (Pressed[ 2 ]) Size8Tall(CRGB::Green);
+  if (Pressed[ 3 ]) Size8Deep(CRGB::Blue);
+
+  rDelay(50); // Force FastLED to refresh
+  for (byte i=0; i<10; i++) Pressed[i] = false;
 }
 

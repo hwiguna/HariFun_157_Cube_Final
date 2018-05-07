@@ -31,6 +31,7 @@ void _ExecuteX(void *pvParameters)
         case FX_FlipFrontToLeft: FlipFrontToLeft(fgColor, rate); break;
         case FX_FlipLeftToBack: FlipLeftToBack(fgColor, rate); break;
         case FX_FlipBackToBottom: FlipBackToBottom(fgColor, rate); break;
+        case FX_FlashLineXAlongZ: FlashLineXAlongZ(0, fgColor); break;
         case FX_SlidingCubes: SlidingCubes(); break;
         default: break;
         //StaticHatXY();

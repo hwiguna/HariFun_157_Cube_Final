@@ -103,7 +103,7 @@ void loop() {
   while ((subscription = mqtt.readSubscription(5000))) {
     // Check if its the onoff button feed
     if (subscription == &onoffbutton) {
-      Serial.print(F("CUBE: "));
+      //Serial.print(F("CUBE: "));
       Serial.println((char *)onoffbutton.lastread);
       
       if (strcmp((char *)onoffbutton.lastread, "Blue") == 0) {

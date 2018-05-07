@@ -5,20 +5,22 @@ byte StringToEffect(String string)
 {
   byte effect = 0;
 
-  if (string == "FX_Clear") effect = FX_Clear;
-  if (string == "FX_Explode") effect = FX_Explode;
-  if (string == "FX_GradualUp") effect = FX_Clear;
-  if (string == "FX_GradualSide") effect = FX_GradualSide;
-  if (string == "FX_FlashLineXAlongZ") effect = FX_FlashLineXAlongZ;
+  if (string.startsWith("FX_Clear")) effect = FX_Clear;
+  if (string.startsWith("FX_Explode")) effect = FX_Explode;
+  if (string.startsWith("FX_GradualUp")) effect = FX_Clear;
+  if (string.startsWith("FX_GradualSide")) effect = FX_GradualSide;
+  if (string.startsWith("FX_FlashLineXAlongZ")) effect = FX_FlashLineXAlongZ;
   
-  if (string == "FX_FlipBottomToFront") effect = FX_FlipBottomToFront;
-  if (string == "FX_FlipFrontToLeft") effect = FX_FlipFrontToLeft;
-  if (string == "FX_FlipLeftToBack") effect = FX_FlipLeftToBack;
-  if (string == "FX_FlipBackToBottom") effect = FX_FlipBackToBottom;
-  if (string == "FX_SlidingCubes") effect = FX_SlidingCubes;
+  if (string.startsWith("FX_FlipBottomToFront")) effect = FX_FlipBottomToFront;
+  if (string.startsWith("FX_FlipFrontToLeft")) effect = FX_FlipFrontToLeft;
+  if (string.startsWith("FX_FlipLeftToBack")) effect = FX_FlipLeftToBack;
+  if (string.startsWith("FX_FlipBackToBottom")) effect = FX_FlipBackToBottom;
+  if (string.startsWith("FX_SlidingCubes")) effect = FX_SlidingCubes;
 
-  if (string == "FX_Hat") effect = FX_Hat;
-  if (string == "FX_HatRainbow") effect = FX_HatRainbow;
+  if (string.startsWith("FX_Hat")) effect = FX_Hat;
+  if (string.startsWith("FX_Rainbow")) effect = FX_Rainbow;
+  if (string.startsWith("FX_DrawText")) effect = FX_DrawText;
+  if (string.startsWith("FX_SetAll")) effect = FX_SetAll;
 
   Serial.print("effect=");Serial.println(effect);
   return effect;
@@ -26,9 +28,16 @@ byte StringToEffect(String string)
 
 CRGB StringToColor(String string)
 {
+  string.toLowerCase();
   CRGB color = CRGB::Black;
-  if (string == "Blue" ) color = CRGB::Blue;
-  if (string == "Red" ) color = CRGB::Red;
+  if (string.indexOf("blue") != -1) color = CRGB::Blue;
+  if (string.indexOf("red") != -1) color = CRGB::Red;
+  if (string.indexOf("green") != -1) color = CRGB::Green;
+  if (string.indexOf("black") != -1) color = CRGB::Black;
+  if (string.indexOf("yellow") != -1) color = CRGB::Yellow;
+  if (string.indexOf("purple") != -1) color = CRGB::Purple;
+  if (string.indexOf("orange") != -1) color = CRGB::Orange;
+  if (string.indexOf("pink") != -1) color = CRGB::HotPink;
 
   return color;
 }
@@ -95,13 +104,18 @@ void ExecuteSerialCommand() {
       case FX_FlipBackToBottom: FlipBackToBottom(fgColor, rate); break;
       case FX_SlidingCubes: SlidingCubes(); break;
       case FX_Hat: StaticHatXY(); break;
-      case FX_HatRainbow: StaticHatXYRainbow(); break;
+      case FX_Rainbow: Rainbow(100); break;
+      case FX_SetAll: SetAll(color); break;
+      
+      case FX_DrawText: DrawText(param1); break;
       default: break;
         //StaticHatXY();
         //GrowFromCenter(0, fgColor, rate);
         //ShrinkToCenter(0, fgColor, rate);
     }
 
+    rDelay(50); // Force FastLED to refresh
+    
     // clear the string:
     inputString = "";
     stringComplete = false;

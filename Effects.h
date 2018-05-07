@@ -13,23 +13,25 @@ const byte FX_Char1 = 11;
 const byte FX_Char2 = 12;
 const byte FX_Char3 = 13;
 const byte FX_Hat = 14;
-const byte FX_HatRainbow = 15;
+const byte FX_Rainbow = 15;
+const byte FX_DrawText = 16;
+const byte FX_SetAll = 17;
 
 byte ButtonToEffect(byte buttonIndex)
 {
   byte effect;
   switch (buttonIndex)
   {
-    case 0: effect = FX_Char1; break;
-    case 1: effect = FX_Char2; break;
-    case 2: effect = FX_Char3; break;
-    case 3: effect = FX_GradualUp; break;
-    case 4: effect = FX_FlashLineXAlongZ; break;
-    case 5: effect = FX_GradualSide ; break;
+    case 0: effect = FX_Clear; break;
+    case 1: effect = FX_Char1; break;
+    case 2: effect = FX_Char2; break;
+    case 3: effect = FX_Char3; break;
+    case 4: effect = FX_GradualUp; break;
+    case 5: effect = FX_FlashLineXAlongZ; break;
     case 6: effect = FX_FlipBottomToFront; break;
     case 7: effect = FX_FlipFrontToLeft; break;
     case 8: effect = FX_Explode; break;
-    case 9: effect = FX_Clear; break;
+    case 9: effect = FX_GradualSide ; break;
   }
 
   return effect;
