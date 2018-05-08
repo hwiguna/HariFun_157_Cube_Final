@@ -52,6 +52,7 @@ int effectIndex;
 #include "Lines.h"
 #include "Shapes.h"
 #include "Text.h"
+#include "Bitmaps.h"
 #include "Anim_Solids.h"
 #include "Anim_Wires.h"
 #include "SpectrumAnalyzer.h"
@@ -80,6 +81,7 @@ void setup() {
   SetupRTOS();
 #endif
   // SetupRemote();
+  
 }
 
 void loop() {
@@ -91,15 +93,19 @@ void loop() {
   ExecuteSerialCommand();
   ExecuteButtons();
 #endif
+
+//ArrowOnXYPlane_LeftToRight(CRGB::Red);
+//ArrowOnZYPlane_BackToFront(CRGB::Blue);
+//delay(1500);
 }
 
 void ExecuteButtons()
 {
   ReadButtons();
   if (Pressed[ 0 ]) SetAll(bgColor);
-  if (Pressed[ 1 ]) Size8Wide(CRGB::Red);
-  if (Pressed[ 2 ]) Size8Tall(CRGB::Green);
-  if (Pressed[ 3 ]) Size8Deep(CRGB::Blue);
+  if (Pressed[ 1 ]) ArrowOnZYPlane_BackToFront(CRGB::Red); // Size8Wide(CRGB::Red);
+  if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
+  if (Pressed[ 3 ]) ArrowOnXYPlane_LeftToRight(CRGB::Blue); //Size8Deep(CRGB::Blue);
 
   rDelay(50); // Force FastLED to refresh
   for (byte i=0; i<10; i++) Pressed[i] = false;

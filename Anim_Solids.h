@@ -1,7 +1,14 @@
 // Animated Solid/Filled Shapes
+// FlapBottomToFront(CRGB c, int rate)
+// DrawPlane(byte which, int offset, CRGB c)
+// BouncePlane(byte which, byte nTimes, CRGB c, byte rate)
+// FillCube(byte which, byte nTimes, CRGB c, byte rate)
+// Explode(CRGB c, byte expandRate)
+// CRGB Wheel(byte WheelPos)
+// Rainbow(uint8_t wait)
+// RainbowXZ(uint8_t wait)
 
-void FlapBottomToFront(CRGB c, int rate)
-{
+void FlapBottomToFront(CRGB c, int rate) {
   Point origin = {0, 0, 0};
   Point width = {7, 7, 7};
   Point offset = {width.x, width.y, width.z};
@@ -38,26 +45,7 @@ void FlapBottomToFront(CRGB c, int rate)
   }
 }
 
-//void BounceXYPlane(byte nTimes, CRGB c, byte rate)
-//{
-//  for (int rep = 0; rep < nTimes; rep++)
-//  {
-//    for (int z = 0; z < 8; z++) {
-//      DrawXYPlane(z, c);
-//      rDelay(rate);
-//      DrawXYPlane(z, bgColor);
-//    }
-//
-//    for (int z = 7; z > 0; z--) {
-//      DrawXYPlane(z, c);
-//      rDelay(rate);
-//      DrawXYPlane(z, bgColor);
-//    }
-//  }
-//}
-
-void DrawPlane(byte which, int offset, CRGB c)
-{
+void DrawPlane(byte which, int offset, CRGB c) {
   switch (which) {
     case 1: DrawXYPlane(offset, c); break;
     case 2: DrawYZPlane(offset, c); break;
@@ -65,8 +53,7 @@ void DrawPlane(byte which, int offset, CRGB c)
   }
 }
 
-void BouncePlane(byte which, byte nTimes, CRGB c, byte rate)
-{
+void BouncePlane(byte which, byte nTimes, CRGB c, byte rate) {
   for (int rep = 0; rep < nTimes; rep++)
   {
     for (int x = 0; x < 8; x++) {
@@ -85,8 +72,7 @@ void BouncePlane(byte which, byte nTimes, CRGB c, byte rate)
   }
 }
 
-void FillCube(byte which, byte nTimes, CRGB c, byte rate)
-{
+void FillCube(byte which, byte nTimes, CRGB c, byte rate) {
   for (int rep = 0; rep < nTimes; rep++)
   {
     for (int i = 0; i < 8; i++) {
@@ -103,8 +89,7 @@ void FillCube(byte which, byte nTimes, CRGB c, byte rate)
   }
 }
 
-void Explode(CRGB c, byte expandRate)
-{
+void Explode(CRGB c, byte expandRate) {
   for (byte i = 0; i < 4; i++) {
     Point a = {3 - i, 3 - i, 3 - i};
     Point b = {4 + i, 4 + i, 4 + i};
@@ -117,10 +102,11 @@ void Explode(CRGB c, byte expandRate)
   }
 }
 
-// Input a value 0 to 255 to get a color value.
-// The colours are a transition r - g - b - back to r.
-// Thanks to mattnupen: https://codebender.cc/sketch:80438#Neopixel%20Rainbow.ino
 CRGB Wheel(byte WheelPos) {
+  // Input a value 0 to 255 to get a color value.
+  // The colours are a transition r - g - b - back to r.
+  // Thanks to mattnupen: https://codebender.cc/sketch:80438#Neopixel%20Rainbow.ino
+
   if (WheelPos < 85) {
     return  CRGB(WheelPos * 3, 255 - WheelPos * 3, 0);
   }
@@ -146,17 +132,64 @@ void Rainbow(uint8_t wait) {
 }
 
 void RainbowXZ(uint8_t wait) {
-  uint16_t j, x, y, z;
-
-  for (j = 0; j < 256; j++) {
-    for (y = 0; y < 8; y++) {
-      for (x = 0; x < 8; x++) {
-        for (z = 0; z < 8; z++) {
-          SetPixel(x, y, z, Wheel( (x+z*8+y*64) & 255) );
-        }
+  uint16_t x, y, z;
+  for (y = 0; y < 8; y++) {
+    for (x = 0; x < 8; x++) {
+      for (z = 0; z < 8; z++) {
+        SetPixel(x, y, z, Wheel( (x + z * 8 + y * 64) & 255) );
       }
     }
-    rDelay(wait);
   }
+}
+
+void ArrowOnXYPlane(int offset, CRGB c) {
+  for (byte y=0; y<8; y++) {
+    for (int x=0; x<8; x++) {
+      //SetPixel(offset+x, y, 0, bitRead(arrowRight[7-y],7-x) ? c : CRGB::Black);
+      DrawLine(offset+x, y, 0, offset+x, y, 7, bitRead(arrowRight[7-y],7-x) ? c : CRGB::Black);
+    }
+  }
+}
+
+void ArrowOnXYPlane_LeftToRight(CRGB c) {
+  for (int x=-7; x<8+8; x++) {
+      ArrowOnXYPlane(x, c);
+      rDelay(50);
+      ArrowOnXYPlane(x, CRGB::Black);
+    }
+}
+
+void ArrowOnZYPlane(int offset, CRGB c) {
+  for (byte y=0; y<8; y++) {
+    for (int z=0; z<8; z++) {
+      SetPixel(0, y, offset+7-z, bitRead(arrowRight[7-y],7-z) ? c : CRGB::Black);
+      //DrawLine(offset+z, y, 0, offset+z, y, 7, bitRead(arrowRight[7-y],7-z) ? c : CRGB::Black);
+    }
+  }
+}
+
+void ArrowOnZYPlane_BackToFront(CRGB c) {
+  for (int z=8+8; z>-8; z--) {
+      ArrowOnZYPlane(z, c);
+      rDelay(50);
+      ArrowOnZYPlane(z, CRGB::Black);
+    }
+}
+
+void ArrowUpOnZYPlane(int offset, CRGB c) {
+  for (byte y=0; y<8; y++) {
+    for (int z=0; z<8; z++) {
+      SetPixel(0, offset+y, 7-z, bitRead(arrowUp[7-y],7-z) ? c : CRGB::Black);
+      //DrawLine(offset+z, y, 0, offset+z, y, 7, bitRead(arrowRight[7-y],7-z) ? c : CRGB::Black);
+    }
+  }
+}
+
+void ArrowOnZYPlane_Upward(CRGB c) {
+  for (int y=-8; y<8+8; y++) {
+      ArrowUpOnZYPlane(y, c);
+      rDelay(50);
+      ArrowUpOnZYPlane(y, CRGB::Black);
+    }
 }
 

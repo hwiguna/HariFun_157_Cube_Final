@@ -1,4 +1,5 @@
 //== Line Routines ===
+//DrawLine(int x1, int y1, int z1, int x2, int y2, int z2, CRGB c)
 //DrawLine(Point a, Point b, CRGB c)
 //DrawXLine(int y, int z, CRGB c)
 //DrawYLine(int x, int z, CRGB c)

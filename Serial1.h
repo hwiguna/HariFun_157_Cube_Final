@@ -1,8 +1,7 @@
 String inputString = "";         // a String to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 
-byte StringToEffect(String string)
-{
+byte StringToEffect(String string) {
   byte effect = 0;
 
   if (string.startsWith("FX_Clear")) effect = FX_Clear;
@@ -26,8 +25,7 @@ byte StringToEffect(String string)
   return effect;
 }
 
-CRGB StringToColor(String string)
-{
+CRGB StringToColor(String string) {
   string.toLowerCase();
   CRGB color = CRGB::Black;
   if (string.indexOf("blue") != -1) color = CRGB::Blue;
@@ -62,7 +60,6 @@ void serialEvent1() {
 }
 
 void ExecuteSerialCommand() {
-
   if (stringComplete) {
     inputString += " ";
     Serial.println(inputString);
