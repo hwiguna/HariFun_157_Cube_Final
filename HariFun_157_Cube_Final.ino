@@ -107,6 +107,10 @@ void ExecuteButtons()
   if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
   if (Pressed[ 3 ]) ArrowOnXYPlane_LeftToRight(CRGB::Blue); //Size8Deep(CRGB::Blue);
 
+  if (Pressed[ 4 ]) for (byte n=0;n<3; n++) SpinOnXAxis(CRGB::Blue);
+  if (Pressed[ 5 ]) for (byte n=1;n<=8; n++) SpinOnXAxis(CRGB::Blue, n);
+  if (Pressed[ 6 ]) StaticHatXYRainbow();
+
   rDelay(50); // Force FastLED to refresh
   for (byte i=0; i<10; i++) Pressed[i] = false;
 }

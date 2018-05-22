@@ -1,4 +1,22 @@
 // Wireframe Animations
+// FlipSlant(Point origin, int from, int to, CRGB c, int rate, Point rotations)
+// FlipBottomToFront(CRGB c, int rate)
+// FlipFrontToRight(CRGB c, int rate)
+// FlipFrontToLeft(CRGB c, int rate)
+// FlipLeftToBack(CRGB c, int rate)
+// FlipBackToRight(CRGB c, int rate)
+// FlipBackToBottom(CRGB c, int rate)
+// GrowFromCenter(byte y, CRGB c, byte rate)
+// ShrinkToCenter(byte y, CRGB c, byte rate)
+// WaveAnim()
+// StaticWaveYZ()
+// StaticWaveXY()
+// SineWave()
+// FlashLineXAlongZ(int y, CRGB c)
+// StaticHatXY() 
+// StaticHatXYRainbow()
+
+// SpinOnZAxis(CRGB c)
 
 void FlipSlant(Point origin, int from, int to, CRGB c, int rate, Point rotations)
 {
@@ -504,7 +522,9 @@ void StaticHatXYRainbow() // Auto
         float ripple_interval = 1.3;
         int height = 4 + sin(distance / ripple_interval + (float)i / 3) * 4;
 
-        CRGB color = Wheel((x + height * 8 + y * 16) & 255);
+        //CRGB color = Wheel((x + height * 8 + y * 16) & 255);
+        //CRGB color = Wheel(255-((x + height * 16 + y ) & 255); // good
+        CRGB color = Wheel((127+ x + height * 16 + y ) & 255); // better
 
         SetPixel(x, height, y, color); // Flip y and z axes because horizontal plane is xy in math, but xz on my cube.
       }
@@ -569,4 +589,109 @@ void SizeRaiseCube(CRGB c)
 //DrawXLine(int y, int z, CRGB c)
 //DrawYLine(int x, int z, CRGB c)
 //DrawZLine(int x, int y, CRGB c)
+
+void SpinOnXAxis(CRGB c) {
+  //-- Front upwards, rear downward --
+  for (int i = 0; i < 8; i++) {
+    // front bottom
+    int yUp = i;
+    int yDown = 7-i;
+    DrawLine(0, yUp, 0, 7, yUp, 0, c); // Front
+    
+    // diagonal front bottom to rear top
+    DrawLine(0, yUp, 0, 0, yDown, 7, c); // diagonal left
+    DrawLine(7, yUp, 0, 7, yDown, 7, c); // diagonal right
+
+    // rear top
+    DrawLine(0, yDown, 7, 7, yDown, 7, c); // Front
+    rDelay(50);
+    SetAll(bgColor);
+  }
+
+  //-- Top away, bottom towards --
+  for (int i = 0+1; i < (8-1); i++) {
+    // front bottom
+    int zAway = i;
+    int zTowards = 7-i;
+    DrawLine(0, 7, zAway, 7, 7, zAway, c); // Top front
+    
+    // diagonal front bottom to rear top
+    DrawLine(0, 7, zAway, 0, 0, zTowards, c); // diagonal left
+    DrawLine(7, 7, zAway, 7, 0, zTowards, c); // diagonal right
+
+    // rear top
+    DrawLine(0, 0, zTowards, 7, 0, zTowards, c); // Bottom rear
+    rDelay(50);
+    SetAll(bgColor);
+  }
+}
+
+void SpinOnXAxis(CRGB c, int len) {
+  //-- Front upwards, rear downward --
+  for (int i = 0; i < 8; i++) {
+    
+    // front bottom
+    int yUp = i;
+    int yDown = 7-i;
+    
+    for (int x=0; x<len; x++) {
+      // diagonal front bottom to rear top
+    DrawLine(x, yUp, 0, x, yDown, 7, c); // diagonal left
+    
+    }
+    rDelay(50);
+    SetAll(bgColor);
+  }
+
+  //-- Top away, bottom towards --
+  for (int i = 0+1; i < (8-1); i++) {
+    // front bottom
+    int zAway = i;
+    int zTowards = 7-i;
+
+    for (int x=0; x<len; x++) {
+      // diagonal front bottom to rear top
+      DrawLine(x,7,zAway, x,0,zTowards, c); // diagonal left
+    }
+    
+    rDelay(50);
+    SetAll(bgColor);
+  }
+}
+
+void SpinOnZAxis(CRGB c) {
+  //-- Front rightwards, rear leftwards --
+  for (int i = 0; i < 8; i++) {
+    SetAll(bgColor);
+    // front left
+    int xUp = i;
+    int xDown = 7-i;
+    DrawLine(xUp,0,0, xUp,7,0, c);
+    
+    // diagonal front bottom to rear top
+    DrawLine(xUp,0,0, xDown,0,7, c); // diagonal bottom
+    DrawLine(xUp,7,0, xDown,7,7, c); // diagonal top
+
+    // rear right
+    DrawLine(xDown,0,7, xDown,7,7, c);
+    rDelay(50);
+  }
+
+  //-- Right away, Left towards --
+  for (int i = 0+1; i < (8-1); i++) {
+    SetAll(bgColor);
+    // Right moving away
+    int zAway = i;
+    int zTowards = 7-i;
+    DrawLine(7,0,zAway, 7,7,zAway, c); // right
+    
+    // diagonal front bottom to rear top
+    DrawLine(7,0,zAway, 0,0,zTowards, c); // diagonal bottom
+    DrawLine(7,7,zAway, 0,7,zTowards, c); // diagonal top
+
+    // Left coming towards
+    DrawLine(0,0,zTowards, 0,7,zTowards, c);
+    rDelay(50);
+  }
+}
 
