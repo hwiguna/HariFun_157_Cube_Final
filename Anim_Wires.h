@@ -16,6 +16,8 @@
 // StaticHatXY() 
 // StaticHatXYRainbow()
 
+// SpinOnXAxis(CRGB c)
+// SpinOnXAxis(CRGB c, int len)
 // SpinOnZAxis(CRGB c)
 
 void FlipSlant(Point origin, int from, int to, CRGB c, int rate, Point rotations)
