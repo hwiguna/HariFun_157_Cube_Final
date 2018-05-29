@@ -97,15 +97,28 @@ void loop() {
 //ArrowOnXYPlane_LeftToRight(CRGB::Red);
 //ArrowOnZYPlane_BackToFront(CRGB::Blue);
 //delay(1500);
+
+
+  byte nTimes = 3;
+//  BouncePlane(1, nTimes, fgColor, 100); SetAll(bgColor);
+//  BouncePlane(2, nTimes, fgColor, 100); SetAll(bgColor);
+//  BouncePlane(3, nTimes, fgColor, 100); SetAll(bgColor);
+
+//  byte rate = 100;
+//  FillCube(1, nTimes, fgColor, rate);
+//  FillCube(2, nTimes, fgColor, rate);
+//  FillCube(3, nTimes, fgColor, rate);
+
 }
 
 void ExecuteButtons()
 {
   ReadButtons();
   if (Pressed[ 0 ]) SetAll(bgColor);
-  if (Pressed[ 1 ]) ArrowOnZYPlane_BackToFront(CRGB::Red); // Size8Wide(CRGB::Red);
-  if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
-  if (Pressed[ 3 ]) ArrowOnXYPlane_LeftToRight(CRGB::Blue); //Size8Deep(CRGB::Blue);
+  if (Pressed[ 1 ]) RetroFromFuture();
+//  if (Pressed[ 1 ]) ArrowOnZYPlane_BackToFront(CRGB::Red); // Size8Wide(CRGB::Red);
+//  if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
+//  if (Pressed[ 3 ]) ArrowOnXYPlane_LeftToRight(CRGB::Blue); //Size8Deep(CRGB::Blue);
 
   if (Pressed[ 4 ]) for (byte n=0;n<3; n++) SpinOnXAxis(CRGB::Blue);
   if (Pressed[ 5 ]) for (byte n=1;n<=8; n++) SpinOnXAxis(CRGB::Blue, n);
