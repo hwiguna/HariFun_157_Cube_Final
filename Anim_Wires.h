@@ -509,9 +509,8 @@ void StaticHatXY() // Auto
   }
 }
 
-void StaticHatXYRainbow() // Auto
+void StaticHatXYRainbow(int iterations) // Auto
 {
-  int iterations = 2000;
   for (int i = 0; i < iterations; i++)
   {
     SetAll(bgColor);

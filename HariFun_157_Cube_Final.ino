@@ -109,12 +109,13 @@ void loop() {
 //  FillCube(2, nTimes, fgColor, rate);
 //  FillCube(3, nTimes, fgColor, rate);
 
+Rainbow(100);
 }
 
 void ExecuteButtons()
 {
   ReadButtons();
-  if (Pressed[ 0 ]) SetAll(bgColor);
+  if (Pressed[ 1 ]) SetAll(bgColor);
   if (Pressed[ 1 ]) RetroFromFuture();
 //  if (Pressed[ 1 ]) ArrowOnZYPlane_BackToFront(CRGB::Red); // Size8Wide(CRGB::Red);
 //  if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
@@ -122,7 +123,7 @@ void ExecuteButtons()
 
   if (Pressed[ 4 ]) for (byte n=0;n<3; n++) SpinOnXAxis(CRGB::Blue);
   if (Pressed[ 5 ]) for (byte n=1;n<=8; n++) SpinOnXAxis(CRGB::Blue, n);
-  if (Pressed[ 6 ]) StaticHatXYRainbow();
+  if (Pressed[ 0 ]) StaticHatXYRainbow(7);
 
   rDelay(50); // Force FastLED to refresh
   for (byte i=0; i<10; i++) Pressed[i] = false;
