@@ -1,6 +1,15 @@
+void Blink()
+{
+  Serial.println("on");
+  leds[ 0 ] = CRGB::White;
+  rDelay(animRate);
+  Serial.println("off");
+  leds[ 0 ] = CRGB::Black;
+}
+
 void OneAtATime()
 {
-  for (int i = 0; i < NUM_LEDS; i++) {    
+  for (int i = 0; i < NUM_LEDS; i++) {     // 
     leds[ i ] = CRGB::White;
     rDelay(animRate);
     //vTaskDelay(animRate / portTICK_PERIOD_MS);
@@ -85,4 +94,3 @@ void DrawXYRects()
 //  FillCube(1, nTimes, fgColor, rate);
 //  FillCube(2, nTimes, fgColor, rate);
 //  FillCube(3, nTimes, fgColor, rate);
-

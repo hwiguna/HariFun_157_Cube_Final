@@ -147,11 +147,18 @@ void SlidingCubes()
   }
 }
 
+void SayHello()
+{
+  byte rate = 60;
+  DrawText(F("HELLO MAKESHIFT   "));
+  rDelay(1000);
+}
+
 void RetroFromFuture()
 {
   byte rate = 60;
-  DrawText(F("HI YOUTUBE   "));
-  rDelay(1000);
+//  DrawText(F("HI MAKESHIFT   "));
+//  rDelay(1000);
 
   GrowFromCenter(0, fgColor, rate);
   rDelay(500);
@@ -171,4 +178,3 @@ void RetroFromFuture()
   Rain();
   rDelay(1000);
 }
-

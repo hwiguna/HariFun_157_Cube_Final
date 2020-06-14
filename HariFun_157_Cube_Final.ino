@@ -81,7 +81,7 @@ void setup() {
   SetupRTOS();
 #endif
   // SetupRemote();
-  
+  Serial.println("READY!");
 }
 
 void loop() {
@@ -109,23 +109,28 @@ void loop() {
 //  FillCube(2, nTimes, fgColor, rate);
 //  FillCube(3, nTimes, fgColor, rate);
 
-Rainbow(100);
+// Rainbow(100);
 }
 
 void ExecuteButtons()
 {
   ReadButtons();
-  if (Pressed[ 1 ]) SetAll(bgColor);
-  if (Pressed[ 1 ]) RetroFromFuture();
-//  if (Pressed[ 1 ]) ArrowOnZYPlane_BackToFront(CRGB::Red); // Size8Wide(CRGB::Red);
-//  if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
-//  if (Pressed[ 3 ]) ArrowOnXYPlane_LeftToRight(CRGB::Blue); //Size8Deep(CRGB::Blue);
+  
+  if (Pressed[ 0 ]) OneAtATime(); 
+  if (Pressed[ 1 ]) ArrowOnZYPlane_BackToFront(CRGB::Red); // Size8Wide(CRGB::Red);
+  if (Pressed[ 2 ]) ArrowOnZYPlane_Upward(CRGB::Green); // Size8Tall(CRGB::Green);
+  if (Pressed[ 3 ]) ArrowOnXYPlane_LeftToRight(CRGB::Blue); //Size8Deep(CRGB::Blue);
 
   if (Pressed[ 4 ]) for (byte n=0;n<3; n++) SpinOnXAxis(CRGB::Blue);
-  if (Pressed[ 5 ]) for (byte n=1;n<=8; n++) SpinOnXAxis(CRGB::Blue, n);
-  if (Pressed[ 0 ]) StaticHatXYRainbow(7);
+  //if (Pressed[ 5 ]) for (byte n=1;n<=8; n++) SpinOnXAxis(CRGB::Blue, n);
+
+  if (Pressed[ 5 ]) Rainbow(20);
+  if (Pressed[6]) SayHello();
+
+  if (Pressed[7]) RetroFromFuture();
+  if (Pressed[8]) StaticHatXYRainbow(200);
+  if (Pressed[9]) SetAll(bgColor);
 
   rDelay(50); // Force FastLED to refresh
   for (byte i=0; i<10; i++) Pressed[i] = false;
 }
-
